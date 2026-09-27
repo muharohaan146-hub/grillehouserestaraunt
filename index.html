@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -170,7 +170,7 @@
         }
     </style>
 </head>
-<body>
+<body class="antialiased font-bold">
     <!-- Noise overlay -->
     <div class="noise-overlay"></div>
 
@@ -205,7 +205,7 @@
                 <!-- Talabat — lg screens only -->
                 <a href="https://www.talabat.com/uae/restaurant/723772/grille-house-restaurant?aid=3921"
                    target="_blank" rel="noopener"
-                   class="tap-target hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold
+                   class="tap-target hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-black
                           bg-[#FF6B00] text-white hover:bg-[#ff8124] active:scale-95 transition-all duration-300">
                     <iconify-icon icon="lucide:shopping-bag" width="13"></iconify-icon>
                     Talabat
@@ -214,7 +214,7 @@
                 <!-- Noon — lg screens only -->
                 <a href="https://food.noon.com/uae-en/outlet/GRLLHS70KR/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
                    target="_blank" rel="noopener"
-                   class="tap-target hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold
+                   class="tap-target hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-black
                           bg-[#FEEE00] text-black hover:bg-[#fff176] active:scale-95 transition-all duration-300">
                     <iconify-icon icon="lucide:shopping-cart" width="13"></iconify-icon>
                     Noon
@@ -227,7 +227,7 @@
                 <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
                    target="_blank" rel="noopener"
                    class="btn-gold-pulse tap-target hidden sm:inline-flex items-center justify-center
-                          px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-semibold
+                          px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-black
                           bg-[#D4AF37] text-black hover:bg-[#F2C94C] transition-all duration-300">
                     Book a Table
                 </a>
@@ -251,7 +251,7 @@
 
         <!-- Drawer header -->
         <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
-            <span class="text-[#D4AF37] font-bold tracking-widest text-sm uppercase font-serif">Grille House</span>
+            <span class="text-[#D4AF37] font-black tracking-widest text-sm uppercase font-serif">Grille House</span>
             <button id="menu-close" aria-label="Close menu"
                     class="tap-target w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 text-white/60 hover:text-white">
                 <iconify-icon icon="lucide:x" width="18"></iconify-icon>
@@ -260,19 +260,19 @@
 
         <!-- Drawer links -->
         <nav class="flex-1 flex flex-col px-6 py-8 gap-2">
-            <a href="#about"   class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+            <a href="#about"   class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-extrabold">
                 <iconify-icon icon="lucide:flame" width="18" class="text-[#D4AF37]"></iconify-icon> Our Story
             </a>
-            <a href="#menu"    class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+            <a href="#menu"    class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-extrabold">
                 <iconify-icon icon="lucide:beef" width="18" class="text-[#D4AF37]"></iconify-icon> Menu
             </a>
-            <a href="#gallery" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+            <a href="#gallery" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-extrabold">
                 <iconify-icon icon="lucide:image" width="18" class="text-[#D4AF37]"></iconify-icon> Gallery
             </a>
-            <a href="#testimonials" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+            <a href="#testimonials" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-extrabold">
                 <iconify-icon icon="mdi:star" width="18" class="text-[#D4AF37]"></iconify-icon> Reviews
             </a>
-            <a href="#contact" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+            <a href="#contact" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-extrabold">
                 <iconify-icon icon="lucide:map-pin" width="18" class="text-[#D4AF37]"></iconify-icon> Contact
             </a>
         </nav>
@@ -281,21 +281,21 @@
         <div class="px-6 pb-8 pb-safe flex flex-col gap-3">
             <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
                target="_blank" rel="noopener"
-               class="tap-target flex items-center justify-center gap-2 w-full py-3.5 rounded-full text-sm font-bold
+               class="tap-target flex items-center justify-center gap-2 w-full py-3.5 rounded-full text-sm font-black
                       bg-[#D4AF37] text-black active:bg-[#F2C94C] transition-colors">
                 <iconify-icon icon="mdi:whatsapp" width="18"></iconify-icon>
                 Book a Table on WhatsApp
             </a>
             <a href="https://www.talabat.com/uae/restaurant/723772/grille-house-restaurant?aid=3921"
                target="_blank" rel="noopener"
-               class="tap-target flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-bold
+               class="tap-target flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-black
                       bg-[#FF6B00] text-white active:opacity-80 transition-colors">
                 <iconify-icon icon="lucide:shopping-bag" width="16"></iconify-icon>
                 Order on Talabat
             </a>
             <a href="https://food.noon.com/uae-en/outlet/GRLLHS70KR/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
                target="_blank" rel="noopener"
-               class="tap-target flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-bold
+               class="tap-target flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-black
                       bg-[#FEEE00] text-black active:opacity-80 transition-colors">
                 <iconify-icon icon="lucide:shopping-cart" width="16"></iconify-icon>
                 Order on Noon
@@ -375,15 +375,15 @@
 
                 <!-- Main heading -->
                 <div class="reveal" style="transition-delay:120ms;">
-                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-medium leading-[1.05] tracking-tight mb-5 font-serif gold-glow">
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight mb-5 font-serif gold-glow">
                         Grille House<br/>
-                        <span class="italic font-light text-white/80">Eat &amp; Meet.</span>
+                        <span class="italic font-black text-white/80">Eat &amp; Meet.</span>
                     </h1>
                 </div>
 
                 <!-- Slogan -->
                 <div class="reveal" style="transition-delay:240ms;">
-                    <p class="text-base md:text-xl text-white/70 max-w-xl mx-auto mb-10 md:mb-12 font-light leading-relaxed tracking-wide">
+                    <p class="text-base md:text-xl text-white/70 max-w-xl mx-auto mb-10 md:mb-12 font-black leading-relaxed tracking-wide">
                         Where the flavour meets the flame.
                     </p>
                 </div>
@@ -392,13 +392,13 @@
                 <div class="reveal flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 md:gap-4 px-4 sm:px-0"
                      style="transition-delay:360ms;">
                     <a href="#menu"
-                       class="tap-target flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-semibold
+                       class="tap-target flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-black
                               bg-[#D4AF37] text-black hover:bg-[#F2C94C] active:bg-[#F2C94C] transition-all duration-300">
                         View Menu
                     </a>
                     <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
                        target="_blank" rel="noopener"
-                       class="tap-target flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold
+                       class="tap-target flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-black
                               border border-white/20 bg-white/5 text-white hover:border-[#D4AF37]/60
                               active:bg-white/10 transition-all duration-300">
                         <iconify-icon icon="mdi:whatsapp" width="16"></iconify-icon>
@@ -437,7 +437,7 @@
                     Fire-kissed perfection.<br/>
                     <span class="text-[#D4AF37] italic">South African soul.</span>
                 </h2>
-                <p class="text-base md:text-lg text-gray-400 leading-relaxed font-light max-w-2xl mx-auto">
+                <p class="text-base md:text-lg text-gray-400 leading-relaxed font-black max-w-2xl mx-auto">
                     Grille House is a premium steakhouse rooted in the art of charcoal grilling and the warmth of South African and Portuguese culinary tradition. From slow-smoked Brisket and Short Ribs to flame-grilled Piri Piri chicken, every dish is crafted with obsessive attention to heat, time, and flavour.
                 </p>
             </div>
@@ -450,7 +450,7 @@
                                 group-hover:border-[#D4AF37] transition-colors duration-300">
                         <iconify-icon icon="lucide:flame" width="26" class="text-[#D4AF37]"></iconify-icon>
                     </div>
-                    <h3 class="text-base md:text-lg font-semibold text-white mb-2">Slow-Smoked Meats</h3>
+                    <h3 class="text-base md:text-lg font-black text-white mb-2">Slow-Smoked Meats</h3>
                     <p class="text-sm text-gray-500 leading-relaxed">Premium Brisket, Short Ribs &amp; Boerewors smoked low and slow over real charcoal.</p>
                 </div>
 
@@ -459,7 +459,7 @@
                                 group-hover:border-[#D4AF37] transition-colors duration-300">
                         <iconify-icon icon="lucide:beef" width="26" class="text-[#D4AF37]"></iconify-icon>
                     </div>
-                    <h3 class="text-base md:text-lg font-semibold text-white mb-2">Premium Steaks</h3>
+                    <h3 class="text-base md:text-lg font-black text-white mb-2">Premium Steaks</h3>
                     <p class="text-sm text-gray-500 leading-relaxed">Ribeye, Rump, Tenderloin &amp; T-Bone — graded, aged, and cooked to your exact liking.</p>
                 </div>
 
@@ -468,7 +468,7 @@
                                 group-hover:border-[#D4AF37] transition-colors duration-300">
                         <iconify-icon icon="lucide:globe" width="26" class="text-[#D4AF37]"></iconify-icon>
                     </div>
-                    <h3 class="text-base md:text-lg font-semibold text-white mb-2">SA &amp; Portuguese Fusion</h3>
+                    <h3 class="text-base md:text-lg font-black text-white mb-2">SA &amp; Portuguese Fusion</h3>
                     <p class="text-sm text-gray-500 leading-relaxed">Authentic flavours from two great grilling traditions — Pap, Malva Pudding, and Piri Piri.</p>
                 </div>
 
@@ -477,10 +477,10 @@
             <!-- Trust strip -->
             <div class="mt-16 md:mt-24 flex flex-wrap items-center justify-center gap-6 md:gap-10
                         opacity-30 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-700">
-                <span class="reveal font-bold text-xs md:text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:0ms;">CHARCOAL GRILL</span>
-                <span class="reveal font-bold text-xs md:text-sm tracking-[0.3em]"               style="transition-delay:80ms;">SLOW SMOKE</span>
-                <span class="reveal font-bold text-xs md:text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:160ms;">SOUTH AFRICA</span>
-                <span class="reveal font-bold text-xs md:text-sm tracking-[0.3em]"               style="transition-delay:240ms;">PIRI PIRI</span>
+                <span class="reveal font-black text-xs md:text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:0ms;">CHARCOAL GRILL</span>
+                <span class="reveal font-black text-xs md:text-sm tracking-[0.3em]"               style="transition-delay:80ms;">SLOW SMOKE</span>
+                <span class="reveal font-black text-xs md:text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:160ms;">SOUTH AFRICA</span>
+                <span class="reveal font-black text-xs md:text-sm tracking-[0.3em]"               style="transition-delay:240ms;">PIRI PIRI</span>
             </div>
 
         </div>
@@ -505,7 +505,7 @@
                 </h2>
                 <p class="mt-4 md:mt-5 text-gray-500 text-sm md:text-base max-w-lg mx-auto">
                     A bilingual menu (English &amp; Arabic) designed to share with everyone at the table.
-                    <span class="lang-badge ml-2 px-2 py-0.5 rounded text-xs font-medium">EN / AR</span>
+                    <span class="lang-badge ml-2 px-2 py-0.5 rounded text-xs font-extrabold">EN / AR</span>
                 </p>
             </div>
 
@@ -691,7 +691,7 @@
             <div class="reveal mt-12 text-center">
                 <a href="https://www.google.com/maps/place/GRILLE+HOUSE+RESTAURANT/@25.7434843,55.8993715,3a,75y,90t/data=!3m8!1e2!3m6!1sCIABIhAOcxc2SAr9EwkZZZHbhvg9!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAHRPTWlkOLHyzHOPu5Eh2yM0AD7FgFpP7fm9t2onviwoVC-slPTkMqHG7WrYZgCO8nA-8HiF8WjtuEMQ0MA5J5Pq2E1Pr00cLihdsL3iXyWb7rXyYvOVH1_EpgZ5HfHhkW3xA1qVrZd5KjfKViTZ%3Dw86-h114-k-no!7i3060!8i4080!4m9!3m8!1s0x3ef5d966cd859707:0x62ee188117a36dd7!8m2!3d25.7434144!4d55.8994709!10e5!14m1!1BCgIgAQ!16s%2Fg%2F11vqsht171?entry=ttu" 
                    target="_blank" rel="noopener"
-                   class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-bold text-white border border-white/20 hover:border-[#D4AF37] hover:bg-white/5 active:scale-95 transition-all duration-300">
+                   class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-black text-white border border-white/20 hover:border-[#D4AF37] hover:bg-white/5 active:scale-95 transition-all duration-300">
                     <iconify-icon icon="logos:google-maps" width="20"></iconify-icon>
                     See more photos on Google Maps
                 </a>
@@ -713,7 +713,7 @@
 
         <div class="container mx-auto px-4 md:px-6 relative z-10">
             <div class="reveal text-center mb-8">
-                <p class="text-xs uppercase tracking-widest text-[#D4AF37] mb-2 font-semibold">Can't make it in?</p>
+                <p class="text-xs uppercase tracking-widest text-[#D4AF37] mb-2 font-black">Can't make it in?</p>
                 <h3 class="text-2xl sm:text-3xl md:text-4xl font-serif text-white">
                     Order Online &amp; <span class="italic text-[#D4AF37]">enjoy at home.</span>
                 </h3>
@@ -724,7 +724,7 @@
                 <!-- Talabat -->
                 <a href="https://www.talabat.com/uae/restaurant/723772/grille-house-restaurant?aid=3921"
                    target="_blank" rel="noopener"
-                   class="tap-target group flex items-center gap-3 px-7 py-4 rounded-2xl text-sm font-bold w-full sm:w-auto justify-center
+                   class="tap-target group flex items-center gap-3 px-7 py-4 rounded-2xl text-sm font-black w-full sm:w-auto justify-center
                           bg-[#FF6B00] text-white hover:bg-[#ff8124] active:scale-95 transition-all duration-300
                           shadow-lg shadow-[#FF6B00]/20">
                     <iconify-icon icon="lucide:shopping-bag" width="18"></iconify-icon>
@@ -739,7 +739,7 @@
                 <!-- Noon -->
                 <a href="https://food.noon.com/uae-en/outlet/GRLLHS70KR/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
                    target="_blank" rel="noopener"
-                   class="tap-target group flex items-center gap-3 px-7 py-4 rounded-2xl text-sm font-bold w-full sm:w-auto justify-center
+                   class="tap-target group flex items-center gap-3 px-7 py-4 rounded-2xl text-sm font-black w-full sm:w-auto justify-center
                           bg-[#FEEE00] text-black hover:bg-[#fff176] active:scale-95 transition-all duration-300
                           shadow-lg shadow-[#FEEE00]/15">
                     <iconify-icon icon="lucide:shopping-cart" width="18"></iconify-icon>
@@ -794,7 +794,7 @@
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
-                                    <p class="text-white font-semibold text-sm">Myusha Maharaj</p>
+                                    <p class="text-white font-black text-sm">Myusha Maharaj</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Grille House Reviewed, Flavour You Can Trust</p>
                                 </div>
                             </div>
@@ -813,7 +813,7 @@
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
-                                    <p class="text-white font-semibold text-sm">Axel V</p>
+                                    <p class="text-white font-black text-sm">Axel V</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Looks as good as it tastes!</p>
                                 </div>
                             </div>
@@ -837,7 +837,7 @@
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
-                                    <p class="text-white font-semibold text-sm">Zaaida K</p>
+                                    <p class="text-white font-black text-sm">Zaaida K</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Mzansi in RAK</p>
                                 </div>
                             </div>
@@ -856,7 +856,7 @@
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
-                                    <p class="text-white font-semibold text-sm">Marko Hong</p>
+                                    <p class="text-white font-black text-sm">Marko Hong</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Amazing Service</p>
                                 </div>
                             </div>
@@ -880,7 +880,7 @@
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                         <iconify-icon icon="mdi:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
-                                    <p class="text-white font-semibold text-sm">Michay Recosana</p>
+                                    <p class="text-white font-black text-sm">Michay Recosana</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Amazing Service</p>
                                 </div>
                             </div>
@@ -928,7 +928,7 @@
 
             <!-- Big wordmark -->
             <div class="reveal w-full mb-12 md:mb-16 overflow-hidden">
-                <h2 class="text-[14vw] md:text-[12vw] leading-[0.8] tracking-tighter font-bold text-white/5 select-none pointer-events-none font-serif whitespace-nowrap">
+                <h2 class="text-[14vw] md:text-[12vw] leading-[0.8] tracking-tighter font-black text-white/5 select-none pointer-events-none font-serif whitespace-nowrap">
                     GRILLE&nbsp;HOUSE.
                 </h2>
             </div>
@@ -938,7 +938,7 @@
 
                 <!-- Address & Hours -->
                 <div class="reveal">
-                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Find Us</h4>
+                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-black">Find Us</h4>
                     <p class="text-white text-sm leading-relaxed mb-3">
                         3B St – Al Dhait –<br/>Ras Al Khaimah –<br/>United Arab Emirates
                     </p>
@@ -949,7 +949,7 @@
                     </a>
                     <div class="mt-4 px-4 py-3 rounded-xl bg-[#C8102E]/15 border border-[#C8102E]/30">
                         <p class="text-xs text-white/70 leading-relaxed">
-                            <span class="text-[#C8102E] font-semibold">Opening Hours</span><br/>
+                            <span class="text-[#C8102E] font-black">Opening Hours</span><br/>
                             <span class="text-white/50">Sun – Thu:</span> 10:30 AM – 11:00 PM<br/>
                             <span class="text-white/50">Fri &amp; Sat:</span> 11:30 AM – 12:00 AM
                         </p>
@@ -958,7 +958,7 @@
 
                 <!-- Online & Socials -->
                 <div class="reveal" style="transition-delay:100ms;">
-                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Online</h4>
+                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-black">Online</h4>
                     <a href="https://grillehouse.ae" target="_blank" rel="noopener"
                        class="tap-target flex items-center gap-2 text-sm text-gray-400 hover:text-[#D4AF37] transition-colors mb-3">
                         <iconify-icon icon="lucide:globe" width="14"></iconify-icon>
@@ -990,21 +990,21 @@
 
                 <!-- Language + Reserve -->
                 <div class="reveal" style="transition-delay:200ms;">
-                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Language</h4>
+                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-black">Language</h4>
                     <div class="flex gap-2 mb-8">
                         <button id="lang-en"
-                                class="tap-target px-4 py-2 rounded-full text-xs font-semibold bg-[#D4AF37] text-black transition-all">
+                                class="tap-target px-4 py-2 rounded-full text-xs font-black bg-[#D4AF37] text-black transition-all">
                             English
                         </button>
                         <button id="lang-ar"
-                                class="tap-target px-4 py-2 rounded-full text-xs font-semibold border border-white/20 text-gray-400
+                                class="tap-target px-4 py-2 rounded-full text-xs font-black border border-white/20 text-gray-400
                                        hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all">
                             العربية
                         </button>
                     </div>
                      <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
                         target="_blank" rel="noopener"
-                        class="tap-target inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold
+                        class="tap-target inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black
                                bg-[#C8102E] text-white hover:bg-[#e0142e] active:scale-95 transition-all duration-300">
                         <iconify-icon icon="lucide:phone-call" width="14"></iconify-icon>
                         Reserve Now
@@ -1014,7 +1014,7 @@
                     <div class="mt-3 flex flex-col gap-3">
                         <a href="https://www.talabat.com/uae/restaurant/723772/grille-house-restaurant?aid=3921"
                            target="_blank" rel="noopener"
-                           class="tap-target inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold
+                           class="tap-target inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black
                                   border border-[#FF6B00]/60 bg-[#FF6B00]/10 text-[#FF6B00]
                                   hover:bg-[#FF6B00]/20 active:scale-95 transition-all duration-300">
                             <iconify-icon icon="lucide:shopping-bag" width="14"></iconify-icon>
@@ -1022,7 +1022,7 @@
                         </a>
                         <a href="https://food.noon.com/uae-en/outlet/GRLLHS70KR/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
                            target="_blank" rel="noopener"
-                           class="tap-target inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold
+                           class="tap-target inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black
                                   border border-[#FEEE00]/50 bg-[#FEEE00]/08 text-[#FEEE00]
                                   hover:bg-[#FEEE00]/15 active:scale-95 transition-all duration-300">
                             <iconify-icon icon="lucide:shopping-cart" width="14"></iconify-icon>
