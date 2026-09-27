@@ -2,8 +2,9 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grille House – Eat & Meet | Where the Flavour Meets the Flame</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Grille House – Eat &amp; Meet | Where the Flavour Meets the Flame</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +20,9 @@
             --card:    #111111;
         }
 
-        * { box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -27,6 +30,9 @@
             color: #ffffff;
             margin: 0;
             overflow-x: hidden;
+            /* safe area for notched phones */
+            padding-left:  env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
         }
 
         .font-serif { font-family: 'Playfair Display', serif; }
@@ -37,31 +43,18 @@
             transform: translateY(30px);
             transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ── Floating crest animations ── */
-        @keyframes float-left {
-            0%,100% { transform: translateY(0)   rotate(0deg); }
-            50%      { transform: translateY(-18px) rotate(2deg); }
-        }
-        @keyframes float-right {
-            0%,100% { transform: translateY(0)   rotate(0deg); }
-            50%      { transform: translateY(18px)  rotate(-2deg); }
-        }
+        /* ── Floating flame animations ── */
+        @keyframes float-left  { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-18px) rotate(2deg)} }
+        @keyframes float-right { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(18px) rotate(-2deg)} }
         .animate-float-left  { animation: float-left  12s ease-in-out infinite; }
         .animate-float-right { animation: float-right 14s ease-in-out infinite; }
 
         /* ── Noise texture ── */
         .noise-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 50;
-            pointer-events: none;
-            opacity: 0.04;
-            mix-blend-mode: overlay;
+            position: fixed; inset: 0; z-index: 50;
+            pointer-events: none; opacity: 0.04; mix-blend-mode: overlay;
             background-image: url("https://grainy-gradients.vercel.app/noise.svg");
         }
 
@@ -72,54 +65,93 @@
         /* ── Gold glow ── */
         .gold-glow { text-shadow: 0 0 24px rgba(212,175,55,0.55); }
 
-        /* ── Flame line ── */
+        /* ── Flame divider ── */
         .flame-divider {
             width: 60px; height: 3px;
             background: linear-gradient(90deg, var(--gold), var(--gold-lt));
-            border-radius: 2px;
-            margin: 0 auto 24px;
+            border-radius: 2px; margin: 0 auto 24px;
         }
 
         /* ── Menu card hover ── */
         .menu-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
-        .menu-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 48px rgba(212,175,55,0.18);
+        @media (hover:hover) {
+            .menu-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 48px rgba(212,175,55,0.18);
+            }
         }
 
-        /* ── Gold border pulse on CTA ── */
+        /* ── CTA pulse ── */
         @keyframes border-pulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
-            50%      { box-shadow: 0 0 0 8px rgba(212,175,55,0); }
+            0%,100% { box-shadow: 0 0 0 0   rgba(212,175,55,0.4); }
+            50%      { box-shadow: 0 0 0 8px rgba(212,175,55,0);   }
         }
         .btn-gold-pulse { animation: border-pulse 2.4s ease-in-out infinite; }
 
-        /* ── Gallery mosaic ── */
+        /* ── Gallery grid ── */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto;
-            gap: 12px;
+            gap: 10px;
         }
         .gallery-grid .g-tall { grid-row: span 2; }
 
-        @media (max-width: 768px) {
-            .gallery-grid { grid-template-columns: 1fr 1fr; }
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
             .gallery-grid .g-tall { grid-row: span 1; }
         }
 
-        /* ── Scroll indicator ── */
-        @keyframes bounce-y {
-            0%,100% { transform: translateY(0); }
-            50%      { transform: translateY(8px); }
-        }
+        /* ── Scroll cue bounce ── */
+        @keyframes bounce-y { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
         .bounce-y { animation: bounce-y 1.8s ease-in-out infinite; }
 
-        /* ── Arabic RTL note badge ── */
+        /* ── Lang badge ── */
         .lang-badge {
             background: rgba(212,175,55,0.12);
             border: 1px solid rgba(212,175,55,0.3);
             color: var(--gold);
+        }
+
+        /* ── Mobile menu drawer ── */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+        }
+        #mobile-menu.open { transform: translateX(0); }
+
+        /* ── Touch-safe tap targets ── */
+        .tap-target { min-height: 44px; min-width: 44px; }
+
+        /* ── Disable parallax on mobile (perf) ── */
+        @media (max-width: 768px) {
+            .parallax-card-up, .parallax-card-down {
+                transform: none !important;
+            }
+            /* Disable menu card aspect ratio on mobile — full height, no crop */
+            .menu-card { aspect-ratio: unset !important; min-height: 280px; }
+        }
+
+        /* ── Sticky WhatsApp float button (mobile only) ── */
+        #wa-float {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            #wa-float {
+                display: flex;
+                position: fixed;
+                bottom: 20px;
+                right: 16px;
+                bottom: calc(20px + env(safe-area-inset-bottom));
+                z-index: 999;
+                width: 56px; height: 56px;
+                border-radius: 50%;
+                background: #25D366;
+                align-items: center; justify-content: center;
+                box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+                text-decoration: none;
+            }
         }
     </style>
 </head>
@@ -127,92 +159,161 @@
     <!-- Noise overlay -->
     <div class="noise-overlay"></div>
 
+    <!-- ── Sticky WhatsApp float (mobile) ── -->
+    <a id="wa-float" href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
+       target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <iconify-icon icon="mdi:whatsapp" width="28" style="color:#fff;"></iconify-icon>
+    </a>
+
     <!-- ═══════════════════════════════════════════════
          NAVIGATION
     ════════════════════════════════════════════════ -->
-    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-7">
-        <div class="container mx-auto px-6 flex items-center justify-between">
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-5 md:py-7">
+        <div class="container mx-auto px-4 md:px-6 flex items-center justify-between">
 
-            <!-- Logo mark -->
-            <a href="#" class="flex items-center gap-3 group">
-                <!-- SVG crest icon: crossed cleaver & knife inside shield -->
-                <svg width="38" height="42" viewBox="0 0 38 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform duration-300 group-hover:scale-110">
-                    <path d="M19 2 L36 10 L36 24 C36 33 28 39 19 41 C10 39 2 33 2 24 L2 10 Z" stroke="#D4AF37" stroke-width="1.8" fill="rgba(212,175,55,0.07)"/>
-                    <!-- cleaver -->
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 md:gap-3 group">
+                <svg width="34" height="38" viewBox="0 0 38 42" fill="none" xmlns="http://www.w3.org/2000/svg"
+                     class="transition-transform duration-300 group-hover:scale-110 flex-shrink-0">
+                    <path d="M19 2 L36 10 L36 24 C36 33 28 39 19 41 C10 39 2 33 2 24 L2 10 Z"
+                          stroke="#D4AF37" stroke-width="1.8" fill="rgba(212,175,55,0.07)"/>
                     <line x1="10" y1="14" x2="28" y2="30" stroke="#D4AF37" stroke-width="2.2" stroke-linecap="round"/>
                     <rect x="8" y="10" width="9" height="6" rx="1" fill="#D4AF37" opacity="0.9"/>
-                    <!-- knife -->
                     <line x1="28" y1="14" x2="10" y2="30" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>
                     <polygon points="28,10 32,14 26,16" fill="#ffffff" opacity="0.85"/>
                 </svg>
                 <div class="leading-tight">
-                    <div class="text-base font-bold tracking-widest uppercase text-[#D4AF37] font-serif">Grille House</div>
-                    <div class="text-[9px] tracking-[0.25em] text-white/50 uppercase">Eat &amp; Meet</div>
+                    <div class="text-sm md:text-base font-bold tracking-widest uppercase text-[#D4AF37] font-serif">Grille House</div>
+                    <div class="text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 uppercase">Eat &amp; Meet</div>
                 </div>
             </a>
 
             <!-- Desktop links -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#about"    class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Our Story</a>
-                <a href="#menu"     class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Menu</a>
-                <a href="#gallery"  class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Gallery</a>
-                <a href="#contact"  class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Contact</a>
+                <a href="#about"   class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Our Story</a>
+                <a href="#menu"    class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Menu</a>
+                <a href="#gallery" class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Gallery</a>
+                <a href="#contact" class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Contact</a>
             </div>
 
-            <!-- CTA -->
-            <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
-               target="_blank" rel="noopener"
-               class="btn-gold-pulse inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold
-                      bg-[#D4AF37] text-black hover:bg-[#F2C94C] hover:scale-105 transition-all duration-300">
-                Book a Table
-            </a>
+            <!-- Right side: Book CTA + Hamburger -->
+            <div class="flex items-center gap-3">
+                <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
+                   target="_blank" rel="noopener"
+                   class="btn-gold-pulse tap-target hidden sm:inline-flex items-center justify-center
+                          px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-semibold
+                          bg-[#D4AF37] text-black hover:bg-[#F2C94C] transition-all duration-300">
+                    Book a Table
+                </a>
+
+                <!-- Hamburger (mobile only) -->
+                <button id="menu-toggle" aria-label="Open menu"
+                        class="md:hidden tap-target w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-lg
+                               border border-white/10 bg-white/5 active:bg-white/10 transition-colors">
+                    <span class="hamburger-line block w-5 h-0.5 bg-white transition-all duration-300"></span>
+                    <span class="hamburger-line block w-5 h-0.5 bg-white transition-all duration-300"></span>
+                    <span class="hamburger-line block w-5 h-0.5 bg-white transition-all duration-300"></span>
+                </button>
+            </div>
         </div>
     </nav>
+
+    <!-- ── Mobile Drawer ── -->
+    <div id="mobile-menu"
+         class="fixed top-0 right-0 h-full w-72 max-w-[85vw] z-[60] flex flex-col
+                bg-[#0f0f0f] border-l border-white/10 shadow-2xl pt-safe">
+
+        <!-- Drawer header -->
+        <div class="flex items-center justify-between px-6 py-5 border-b border-white/10">
+            <span class="text-[#D4AF37] font-bold tracking-widest text-sm uppercase font-serif">Grille House</span>
+            <button id="menu-close" aria-label="Close menu"
+                    class="tap-target w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 text-white/60 hover:text-white">
+                <iconify-icon icon="lucide:x" width="18"></iconify-icon>
+            </button>
+        </div>
+
+        <!-- Drawer links -->
+        <nav class="flex-1 flex flex-col px-6 py-8 gap-2">
+            <a href="#about"   class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+                <iconify-icon icon="lucide:flame" width="18" class="text-[#D4AF37]"></iconify-icon> Our Story
+            </a>
+            <a href="#menu"    class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+                <iconify-icon icon="lucide:beef" width="18" class="text-[#D4AF37]"></iconify-icon> Menu
+            </a>
+            <a href="#gallery" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+                <iconify-icon icon="lucide:image" width="18" class="text-[#D4AF37]"></iconify-icon> Gallery
+            </a>
+            <a href="#testimonials" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+                <iconify-icon icon="lucide:star" width="18" class="text-[#D4AF37]"></iconify-icon> Reviews
+            </a>
+            <a href="#contact" class="drawer-link tap-target flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-[#D4AF37] hover:bg-white/5 transition-all text-base font-medium">
+                <iconify-icon icon="lucide:map-pin" width="18" class="text-[#D4AF37]"></iconify-icon> Contact
+            </a>
+        </nav>
+
+        <!-- Drawer CTA -->
+        <div class="px-6 pb-8 pb-safe">
+            <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
+               target="_blank" rel="noopener"
+               class="tap-target flex items-center justify-center gap-2 w-full py-3.5 rounded-full text-sm font-bold
+                      bg-[#D4AF37] text-black active:bg-[#F2C94C] transition-colors">
+                <iconify-icon icon="mdi:whatsapp" width="18"></iconify-icon>
+                Book a Table on WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- Drawer backdrop -->
+    <div id="menu-backdrop"
+         class="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+    </div>
 
 
     <!-- ═══════════════════════════════════════════════
          HERO
     ════════════════════════════════════════════════ -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20">
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 md:pt-32 pb-16 md:pb-20">
 
-        <!-- Dark atmospheric background -->
+        <!-- Atmospheric bg -->
         <div class="absolute inset-0 z-0 pointer-events-none select-none">
-            <!-- Ember glow radial -->
             <div class="absolute inset-0"
-                 style="background: radial-gradient(ellipse 80% 60% at 50% 60%,
-                        rgba(212,175,55,0.12) 0%, rgba(180,60,10,0.08) 40%, transparent 70%);"></div>
-            <!-- Subtle charcoal texture overlay -->
+                 style="background:radial-gradient(ellipse 80% 60% at 50% 60%,
+                        rgba(212,175,55,0.12) 0%,rgba(180,60,10,0.08) 40%,transparent 70%);"></div>
             <div class="absolute inset-0 opacity-30"
-                 style="background-image: repeating-linear-gradient(
-                        0deg, transparent, transparent 2px,
-                        rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px);"></div>
-            <!-- Bottom fade -->
+                 style="background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,
+                        rgba(255,255,255,0.012) 2px,rgba(255,255,255,0.012) 4px);"></div>
             <div class="absolute bottom-0 left-0 right-0 h-48"
-                 style="background: linear-gradient(to bottom, transparent, #0a0a0a);"></div>
+                 style="background:linear-gradient(to bottom,transparent,#0a0a0a);"></div>
         </div>
 
-        <!-- Floating decorative flames (left) -->
-        <div class="absolute -left-[8%] top-[10%] w-[35vw] max-w-[480px] z-10 pointer-events-none animate-float-left opacity-25">
+        <!-- Floating flame (left — hidden on small mobile) -->
+        <div class="hidden sm:block absolute -left-[8%] top-[10%] w-[35vw] max-w-[480px] z-10
+                    pointer-events-none animate-float-left opacity-20">
             <svg viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 330 C40 280 10 220 30 160 C50 100 80 80 60 20 C90 60 110 40 120 80 C140 40 160 60 150 110 C175 90 185 130 170 170 C190 160 200 200 180 240 C160 300 130 320 100 330Z"
-                      fill="url(#flameGradL)" opacity="0.9"/>
+                <path d="M100 330 C40 280 10 220 30 160 C50 100 80 80 60 20
+                         C90 60 110 40 120 80 C140 40 160 60 150 110
+                         C175 90 185 130 170 170 C190 160 200 200 180 240
+                         C160 300 130 320 100 330Z" fill="url(#flameL)" opacity="0.9"/>
                 <defs>
-                    <linearGradient id="flameGradL" x1="100" y1="330" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+                    <linearGradient id="flameL" x1="100" y1="330" x2="100" y2="0" gradientUnits="userSpaceOnUse">
                         <stop offset="0%"   stop-color="#D4AF37"/>
                         <stop offset="50%"  stop-color="#F2A900"/>
-                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0.4"/>
                     </linearGradient>
                 </defs>
             </svg>
         </div>
 
-        <!-- Floating decorative flames (right) -->
-        <div class="absolute -right-[8%] bottom-[5%] w-[30vw] max-w-[420px] z-10 pointer-events-none animate-float-right opacity-20">
+        <!-- Floating flame (right — hidden on small mobile) -->
+        <div class="hidden sm:block absolute -right-[8%] bottom-[5%] w-[28vw] max-w-[400px] z-10
+                    pointer-events-none animate-float-right opacity-15">
             <svg viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 330 C40 280 10 220 30 160 C50 100 80 80 60 20 C90 60 110 40 120 80 C140 40 160 60 150 110 C175 90 185 130 170 170 C190 160 200 200 180 240 C160 300 130 320 100 330Z"
-                      fill="url(#flameGradR)" opacity="0.9"/>
+                <path d="M100 330 C40 280 10 220 30 160 C50 100 80 80 60 20
+                         C90 60 110 40 120 80 C140 40 160 60 150 110
+                         C175 90 185 130 170 170 C190 160 200 200 180 240
+                         C160 300 130 320 100 330Z" fill="url(#flameR)" opacity="0.9"/>
                 <defs>
-                    <linearGradient id="flameGradR" x1="100" y1="330" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+                    <linearGradient id="flameR" x1="100" y1="330" x2="100" y2="0" gradientUnits="userSpaceOnUse">
                         <stop offset="0%"   stop-color="#D4AF37"/>
                         <stop offset="60%"  stop-color="#F2A900"/>
                         <stop offset="100%" stop-color="#fff" stop-opacity="0.3"/>
@@ -222,19 +323,19 @@
         </div>
 
         <!-- Hero content -->
-        <div class="container mx-auto px-6 relative z-20 text-center flex flex-col items-center">
-            <div id="hero-content-wrapper" class="max-w-4xl mx-auto">
+        <div class="container mx-auto px-4 md:px-6 relative z-20 text-center flex flex-col items-center">
+            <div id="hero-content-wrapper" class="max-w-4xl mx-auto w-full">
 
                 <!-- Eyebrow badge -->
-                <div class="reveal mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full
-                            border border-[#D4AF37]/30 bg-[#D4AF37]/08 text-[#D4AF37] text-xs tracking-widest uppercase">
+                <div class="reveal mb-6 md:mb-8 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full
+                            border border-[#D4AF37]/30 text-[#D4AF37] text-[10px] md:text-xs tracking-widest uppercase">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] inline-block"></span>
                     Premium Steakhouse · Ras Al Khaimah
                 </div>
 
                 <!-- Main heading -->
                 <div class="reveal" style="transition-delay:120ms;">
-                    <h1 class="text-5xl md:text-7xl font-medium leading-[1.05] tracking-tight mb-6 font-serif gold-glow">
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-medium leading-[1.05] tracking-tight mb-5 font-serif gold-glow">
                         Grille House<br/>
                         <span class="italic font-light text-white/80">Eat &amp; Meet.</span>
                     </h1>
@@ -242,34 +343,37 @@
 
                 <!-- Slogan -->
                 <div class="reveal" style="transition-delay:240ms;">
-                    <p class="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-12 font-light leading-relaxed tracking-wide">
+                    <p class="text-base md:text-xl text-white/70 max-w-xl mx-auto mb-10 md:mb-12 font-light leading-relaxed tracking-wide">
                         Where the flavour meets the flame.
                     </p>
                 </div>
 
-                <!-- CTA buttons -->
-                <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4" style="transition-delay:360ms;">
+                <!-- CTA buttons — full width on mobile -->
+                <div class="reveal flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 md:gap-4 px-4 sm:px-0"
+                     style="transition-delay:360ms;">
                     <a href="#menu"
-                       class="px-8 py-3.5 rounded-full text-sm font-semibold bg-[#D4AF37] text-black
-                              hover:bg-[#F2C94C] hover:scale-105 transition-all duration-300">
+                       class="tap-target flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-semibold
+                              bg-[#D4AF37] text-black hover:bg-[#F2C94C] active:bg-[#F2C94C] transition-all duration-300">
                         View Menu
                     </a>
                     <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
                        target="_blank" rel="noopener"
-                       class="px-8 py-3.5 rounded-full text-sm font-semibold border border-white/20
-                              bg-white/5 text-white hover:border-[#D4AF37]/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                       class="tap-target flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold
+                              border border-white/20 bg-white/5 text-white hover:border-[#D4AF37]/60
+                              active:bg-white/10 transition-all duration-300">
+                        <iconify-icon icon="mdi:whatsapp" width="16"></iconify-icon>
                         Book a Table
                     </a>
                 </div>
 
                 <!-- Scroll cue -->
-                <div class="reveal mt-20 flex flex-col items-center gap-2 text-white/30" style="transition-delay:500ms;">
-                    <span class="text-xs tracking-widest uppercase">Scroll</span>
+                <div class="reveal mt-14 md:mt-20 flex flex-col items-center gap-2 text-white/30" style="transition-delay:500ms;">
+                    <span class="text-[10px] tracking-widest uppercase">Scroll</span>
                     <iconify-icon icon="lucide:chevron-down" class="text-[#D4AF37] bounce-y" width="20"></iconify-icon>
                 </div>
 
                 <!-- Live time -->
-                <div class="reveal flex items-center justify-center gap-4 text-[10px] text-white/30 uppercase tracking-widest mt-8 font-mono"
+                <div class="reveal flex items-center justify-center gap-4 text-[10px] text-white/30 uppercase tracking-widest mt-6 font-mono"
                      style="transition-delay:560ms;">
                     <span id="current-time">--:-- --</span>
                     <span class="w-px h-3 bg-white/20"></span>
@@ -284,58 +388,59 @@
     <!-- ═══════════════════════════════════════════════
          ABOUT / MISSION
     ════════════════════════════════════════════════ -->
-    <section id="about" class="py-32 relative">
-        <div class="container mx-auto px-6">
+    <section id="about" class="py-20 md:py-32 relative">
+        <div class="container mx-auto px-4 md:px-6">
 
             <div class="max-w-4xl mx-auto text-center reveal">
                 <div class="flame-divider"></div>
-                <h2 class="text-3xl md:text-5xl lg:text-6xl leading-tight text-white/90 mb-10 font-serif">
+                <h2 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl leading-tight text-white/90 mb-8 md:mb-10 font-serif">
                     Fire-kissed perfection.<br/>
                     <span class="text-[#D4AF37] italic">South African soul.</span>
                 </h2>
-                <p class="text-lg md:text-xl text-gray-400 leading-relaxed font-light max-w-2xl mx-auto">
+                <p class="text-base md:text-lg text-gray-400 leading-relaxed font-light max-w-2xl mx-auto">
                     Grille House is a premium steakhouse rooted in the art of charcoal grilling and the warmth of South African and Portuguese culinary tradition. From slow-smoked Brisket and Short Ribs to flame-grilled Piri Piri chicken, every dish is crafted with obsessive attention to heat, time, and flavour.
                 </p>
             </div>
 
-            <!-- Brand pillars row -->
-            <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- Brand pillars -->
+            <div class="mt-16 md:mt-24 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
 
                 <div class="reveal text-center group" style="transition-delay:80ms;">
-                    <div class="w-14 h-14 mx-auto mb-5 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
+                    <div class="w-14 h-14 mx-auto mb-4 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
                                 group-hover:border-[#D4AF37] transition-colors duration-300">
                         <iconify-icon icon="lucide:flame" width="26" class="text-[#D4AF37]"></iconify-icon>
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">Slow-Smoked Meats</h3>
+                    <h3 class="text-base md:text-lg font-semibold text-white mb-2">Slow-Smoked Meats</h3>
                     <p class="text-sm text-gray-500 leading-relaxed">Premium Brisket, Short Ribs &amp; Boerewors smoked low and slow over real charcoal.</p>
                 </div>
 
                 <div class="reveal text-center group" style="transition-delay:180ms;">
-                    <div class="w-14 h-14 mx-auto mb-5 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
+                    <div class="w-14 h-14 mx-auto mb-4 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
                                 group-hover:border-[#D4AF37] transition-colors duration-300">
                         <iconify-icon icon="lucide:beef" width="26" class="text-[#D4AF37]"></iconify-icon>
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">Premium Steaks</h3>
+                    <h3 class="text-base md:text-lg font-semibold text-white mb-2">Premium Steaks</h3>
                     <p class="text-sm text-gray-500 leading-relaxed">Ribeye, Rump, Tenderloin &amp; T-Bone — graded, aged, and cooked to your exact liking.</p>
                 </div>
 
                 <div class="reveal text-center group" style="transition-delay:280ms;">
-                    <div class="w-14 h-14 mx-auto mb-5 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
+                    <div class="w-14 h-14 mx-auto mb-4 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
                                 group-hover:border-[#D4AF37] transition-colors duration-300">
                         <iconify-icon icon="lucide:globe" width="26" class="text-[#D4AF37]"></iconify-icon>
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">SA &amp; Portuguese Fusion</h3>
+                    <h3 class="text-base md:text-lg font-semibold text-white mb-2">SA &amp; Portuguese Fusion</h3>
                     <p class="text-sm text-gray-500 leading-relaxed">Authentic flavours from two great grilling traditions — Pap, Malva Pudding, and Piri Piri.</p>
                 </div>
 
             </div>
 
-            <!-- Logo word-marks strip (partner/trust bar) -->
-            <div class="mt-24 flex flex-wrap items-center justify-center gap-10 opacity-30 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-700">
-                <span class="reveal font-bold text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:0ms;">CHARCOAL GRILL</span>
-                <span class="reveal font-bold text-sm tracking-[0.3em]"               style="transition-delay:80ms;">SLOW SMOKE</span>
-                <span class="reveal font-bold text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:160ms;">SOUTH AFRICA</span>
-                <span class="reveal font-bold text-sm tracking-[0.3em]"               style="transition-delay:240ms;">PIRI PIRI</span>
+            <!-- Trust strip -->
+            <div class="mt-16 md:mt-24 flex flex-wrap items-center justify-center gap-6 md:gap-10
+                        opacity-30 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-700">
+                <span class="reveal font-bold text-xs md:text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:0ms;">CHARCOAL GRILL</span>
+                <span class="reveal font-bold text-xs md:text-sm tracking-[0.3em]"               style="transition-delay:80ms;">SLOW SMOKE</span>
+                <span class="reveal font-bold text-xs md:text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:160ms;">SOUTH AFRICA</span>
+                <span class="reveal font-bold text-xs md:text-sm tracking-[0.3em]"               style="transition-delay:240ms;">PIRI PIRI</span>
             </div>
 
         </div>
@@ -343,35 +448,33 @@
 
 
     <!-- ═══════════════════════════════════════════════
-         MENU HIGHLIGHTS  (parallax cards layout)
+         MENU HIGHLIGHTS
     ════════════════════════════════════════════════ -->
-    <section id="menu" class="py-40 relative overflow-hidden">
+    <section id="menu" class="py-20 md:py-40 relative overflow-hidden">
 
-        <!-- Dot pattern bg -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-8 pointer-events-none"
-             style="background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px); background-size: 38px 38px;">
-        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-[0.08] pointer-events-none"
+             style="background-image:radial-gradient(circle,#2a2a2a 1px,transparent 1px);background-size:38px 38px;"></div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
 
-            <div class="reveal mb-20 text-center">
+            <div class="reveal mb-12 md:mb-20 text-center">
                 <div class="flame-divider"></div>
-                <h2 class="text-5xl md:text-7xl font-serif">
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-serif">
                     Explore<br/>
                     <span class="italic text-[#D4AF37]">the flame.</span>
                 </h2>
-                <p class="mt-5 text-gray-500 text-base max-w-lg mx-auto">
+                <p class="mt-4 md:mt-5 text-gray-500 text-sm md:text-base max-w-lg mx-auto">
                     A bilingual menu (English &amp; Arabic) designed to share with everyone at the table.
                     <span class="lang-badge ml-2 px-2 py-0.5 rounded text-xs font-medium">EN / AR</span>
                 </p>
             </div>
 
-            <!-- 2-column parallax card grid — same layout as Superdesign "works" -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <!-- 2-col parallax grid — stacks on mobile -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
 
-                <!-- Card 1: Premium Meats (gold) -->
+                <!-- Card 1 — gold -->
                 <div class="parallax-card-down">
-                    <div class="reveal menu-card bg-[#D4AF37] rounded-3xl p-8 md:p-12 aspect-[4/5]
+                    <div class="reveal menu-card bg-[#D4AF37] rounded-3xl p-7 md:p-12 aspect-auto md:aspect-[4/5]
                                 flex flex-col justify-between shadow-2xl group cursor-pointer">
                         <div class="flex justify-between items-start">
                             <div class="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center
@@ -380,24 +483,24 @@
                             </div>
                             <span class="text-black/70 font-medium text-sm border border-black/20 px-3 py-1 rounded-full">01</span>
                         </div>
-                        <div>
-                            <h3 class="text-4xl md:text-5xl text-black mb-4 leading-none tracking-tight font-serif">
+                        <div class="mt-6 md:mt-0">
+                            <h3 class="text-3xl md:text-5xl text-black mb-4 leading-none tracking-tight font-serif">
                                 Premium<br/>Steaks
                             </h3>
-                            <ul class="text-black/75 text-base leading-relaxed space-y-1">
+                            <ul class="text-black/75 text-sm md:text-base leading-relaxed space-y-1">
                                 <li>· Ribeye &amp; T-Bone</li>
                                 <li>· Rump &amp; Tenderloin</li>
                                 <li>· Slow-Smoked Brisket</li>
                                 <li>· Short Ribs</li>
                             </ul>
                         </div>
-                        <div class="w-full h-px bg-black/10 mt-8"></div>
+                        <div class="w-full h-px bg-black/10 mt-6"></div>
                     </div>
                 </div>
 
-                <!-- Card 2: SA Specialties (dark) -->
+                <!-- Card 2 — dark -->
                 <div class="parallax-card-up md:mt-24">
-                    <div class="reveal menu-card bg-[#111] border border-white/10 rounded-3xl p-8 md:p-12 aspect-[4/5]
+                    <div class="reveal menu-card bg-[#111] border border-white/10 rounded-3xl p-7 md:p-12 aspect-auto md:aspect-[4/5]
                                 flex flex-col justify-between shadow-2xl group cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-500"
                          style="transition-delay:150ms;">
                         <div class="flex justify-between items-start">
@@ -407,24 +510,24 @@
                             </div>
                             <span class="text-white/40 font-medium text-sm border border-white/10 px-3 py-1 rounded-full">02</span>
                         </div>
-                        <div>
-                            <h3 class="text-4xl md:text-5xl text-white mb-4 leading-none tracking-tight font-serif">
+                        <div class="mt-6 md:mt-0">
+                            <h3 class="text-3xl md:text-5xl text-white mb-4 leading-none tracking-tight font-serif">
                                 SA<br/>Classics
                             </h3>
-                            <ul class="text-gray-400 text-base leading-relaxed space-y-1">
+                            <ul class="text-gray-400 text-sm md:text-base leading-relaxed space-y-1">
                                 <li>· Boerewors Roll</li>
                                 <li>· Pap &amp; Tomato Chutney</li>
                                 <li>· Malva Pudding</li>
                                 <li>· Milk Tart &amp; Koeksisters</li>
                             </ul>
                         </div>
-                        <div class="w-full h-px bg-white/10 mt-8"></div>
+                        <div class="w-full h-px bg-white/10 mt-6"></div>
                     </div>
                 </div>
 
-                <!-- Card 3: Poultry & Seafood (dark) -->
+                <!-- Card 3 — dark -->
                 <div class="parallax-card-down">
-                    <div class="reveal menu-card bg-[#111] border border-white/10 rounded-3xl p-8 md:p-12 aspect-[4/5]
+                    <div class="reveal menu-card bg-[#111] border border-white/10 rounded-3xl p-7 md:p-12 aspect-auto md:aspect-[4/5]
                                 flex flex-col justify-between shadow-2xl group cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-500"
                          style="transition-delay:220ms;">
                         <div class="flex justify-between items-start">
@@ -434,23 +537,23 @@
                             </div>
                             <span class="text-white/40 font-medium text-sm border border-white/10 px-3 py-1 rounded-full">03</span>
                         </div>
-                        <div>
-                            <h3 class="text-4xl md:text-5xl text-white mb-4 leading-none tracking-tight font-serif">
+                        <div class="mt-6 md:mt-0">
+                            <h3 class="text-3xl md:text-5xl text-white mb-4 leading-none tracking-tight font-serif">
                                 Poultry &amp;<br/>Seafood
                             </h3>
-                            <ul class="text-gray-400 text-base leading-relaxed space-y-1">
+                            <ul class="text-gray-400 text-sm md:text-base leading-relaxed space-y-1">
                                 <li>· Piri Piri Grilled Chicken</li>
                                 <li>· Grilled Salmon</li>
                                 <li>· SA Fish &amp; Chips</li>
                             </ul>
                         </div>
-                        <div class="w-full h-px bg-white/10 mt-8"></div>
+                        <div class="w-full h-px bg-white/10 mt-6"></div>
                     </div>
                 </div>
 
-                <!-- Card 4: Drinks & Desserts (gold) -->
+                <!-- Card 4 — gold -->
                 <div class="parallax-card-up md:mt-24">
-                    <div class="reveal menu-card bg-[#D4AF37] rounded-3xl p-8 md:p-12 aspect-[4/5]
+                    <div class="reveal menu-card bg-[#D4AF37] rounded-3xl p-7 md:p-12 aspect-auto md:aspect-[4/5]
                                 flex flex-col justify-between shadow-2xl group cursor-pointer"
                          style="transition-delay:330ms;">
                         <div class="flex justify-between items-start">
@@ -460,18 +563,18 @@
                             </div>
                             <span class="text-black/60 font-medium text-sm border border-black/20 px-3 py-1 rounded-full">04</span>
                         </div>
-                        <div>
-                            <h3 class="text-4xl md:text-5xl text-black mb-4 leading-none tracking-tight font-serif">
+                        <div class="mt-6 md:mt-0">
+                            <h3 class="text-3xl md:text-5xl text-black mb-4 leading-none tracking-tight font-serif">
                                 Sips &amp;<br/>Sweets
                             </h3>
-                            <ul class="text-black/75 text-base leading-relaxed space-y-1">
+                            <ul class="text-black/75 text-sm md:text-base leading-relaxed space-y-1">
                                 <li>· Rooibos Tea</li>
                                 <li>· Mathka Karak &amp; Saffron Chai</li>
                                 <li>· Classic Mojitos &amp; Mocktails</li>
                                 <li>· Avalanche Slushies</li>
                             </ul>
                         </div>
-                        <div class="w-full h-px bg-black/10 mt-8"></div>
+                        <div class="w-full h-px bg-black/10 mt-6"></div>
                     </div>
                 </div>
 
@@ -481,37 +584,35 @@
 
 
     <!-- ═══════════════════════════════════════════════
-         SPECIALTY CALLOUT BAND
+         SPECIALTY CALLOUT
     ════════════════════════════════════════════════ -->
-    <section class="py-20 relative overflow-hidden">
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, #D4AF37 0%, #8B6914 100%); opacity: 0.07;"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <section class="py-16 md:py-20 relative overflow-hidden">
+        <div class="absolute inset-0" style="background:linear-gradient(135deg,#D4AF37 0%,#8B6914 100%);opacity:0.07;"></div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-12">
 
                 <div class="reveal flex-1 text-center md:text-left">
-                    <h3 class="text-3xl md:text-4xl font-serif text-[#D4AF37] mb-4">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-serif text-[#D4AF37] mb-4">
                         Family Platters &amp;<br/>Gourmet Burgers
                     </h3>
-                    <p class="text-gray-400 text-base leading-relaxed">
-                        Our sharing platters are built for the whole table. Choose from Smash Burgers, Brisket Burgers, toasted sandwiches, wraps, and pasta — plus a dedicated Kids' Menu so the little ones eat like royalty too.
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        Our sharing platters are built for the whole table. Choose from Smash Burgers, Brisket Burgers, toasted sandwiches, wraps, pasta — plus a dedicated Kids' Menu.
                     </p>
                 </div>
 
-                <div class="reveal flex-shrink-0" style="transition-delay:200ms;">
-                    <!-- Decorative dish icon -->
-                    <div class="w-52 h-52 rounded-full border-2 border-[#D4AF37]/30 flex items-center justify-center
-                                relative bg-[#111]">
+                <div class="reveal flex-shrink-0 order-first md:order-none" style="transition-delay:200ms;">
+                    <div class="w-36 h-36 md:w-52 md:h-52 rounded-full border-2 border-[#D4AF37]/30 flex items-center justify-center relative bg-[#111]">
                         <div class="absolute inset-4 rounded-full border border-[#D4AF37]/15"></div>
-                        <iconify-icon icon="lucide:utensils" width="64" class="text-[#D4AF37] opacity-80"></iconify-icon>
+                        <iconify-icon icon="lucide:utensils" width="48" class="text-[#D4AF37] opacity-80 md:w-16"></iconify-icon>
                     </div>
                 </div>
 
                 <div class="reveal flex-1 text-center md:text-right" style="transition-delay:180ms;">
-                    <h3 class="text-3xl md:text-4xl font-serif text-white mb-4">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-serif text-white mb-4">
                         Bilingual<br/>Experience
                     </h3>
-                    <p class="text-gray-400 text-base leading-relaxed">
-                        Every item on our menu is presented in both English and Arabic — because great food speaks every language.
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        Every item is presented in both English and Arabic — because great food speaks every language.
                     </p>
                 </div>
 
@@ -523,68 +624,65 @@
     <!-- ═══════════════════════════════════════════════
          GALLERY
     ════════════════════════════════════════════════ -->
-    <section id="gallery" class="py-32 relative">
-        <div class="container mx-auto px-6">
+    <section id="gallery" class="py-20 md:py-32 relative">
+        <div class="container mx-auto px-4 md:px-6">
 
-            <div class="reveal text-center mb-16">
+            <div class="reveal text-center mb-10 md:mb-16">
                 <div class="flame-divider"></div>
-                <h2 class="text-4xl md:text-6xl font-serif">
+                <h2 class="text-3xl sm:text-4xl md:text-6xl font-serif">
                     Feast your<br/>
                     <span class="italic text-[#D4AF37]">eyes first.</span>
                 </h2>
-                <p class="mt-4 text-gray-500 text-base">Charcoal. Fire. Flavour.</p>
+                <p class="mt-3 md:mt-4 text-gray-500 text-sm md:text-base">Charcoal. Fire. Flavour.</p>
             </div>
 
-            <!-- Masonry-style gallery using CSS grid with color-block placeholders -->
             <div class="gallery-grid max-w-5xl mx-auto">
 
-                <div class="reveal g-tall rounded-2xl overflow-hidden aspect-[3/4] md:aspect-auto"
-                     style="background: linear-gradient(160deg,#1c1c1c 0%,#2a2200 100%); min-height:260px;"
-                     style="transition-delay:0ms;">
-                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
-                         style="background: linear-gradient(160deg,#111 0%,#2a1a00 100%);">
-                        <iconify-icon icon="lucide:beef" width="40" class="text-[#D4AF37] opacity-60 mb-3"></iconify-icon>
-                        <span class="text-xs text-white/40 tracking-widest uppercase">Ribeye</span>
+                <div class="reveal g-tall rounded-2xl overflow-hidden" style="min-height:200px;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-5"
+                         style="background:linear-gradient(160deg,#111 0%,#2a1a00 100%);min-height:200px;">
+                        <iconify-icon icon="lucide:beef" width="36" class="text-[#D4AF37] opacity-60 mb-2"></iconify-icon>
+                        <span class="text-[10px] text-white/40 tracking-widest uppercase">Ribeye</span>
                     </div>
                 </div>
 
-                <div class="reveal rounded-2xl overflow-hidden" style="min-height:200px; transition-delay:80ms;">
-                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
-                         style="background: linear-gradient(135deg,#181800 0%,#3a2800 100%); min-height:200px;">
-                        <iconify-icon icon="lucide:flame" width="34" class="text-[#F2A900] opacity-70 mb-3"></iconify-icon>
-                        <span class="text-xs text-white/40 tracking-widest uppercase">Slow Smoke</span>
+                <div class="reveal rounded-2xl overflow-hidden" style="min-height:160px;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-5"
+                         style="background:linear-gradient(135deg,#181800 0%,#3a2800 100%);min-height:160px;">
+                        <iconify-icon icon="lucide:flame" width="30" class="text-[#F2A900] opacity-70 mb-2"></iconify-icon>
+                        <span class="text-[10px] text-white/40 tracking-widest uppercase">Slow Smoke</span>
                     </div>
                 </div>
 
-                <div class="reveal rounded-2xl overflow-hidden" style="min-height:200px; transition-delay:120ms;">
-                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
-                         style="background: linear-gradient(135deg,#0f0f0f 0%,#1a1200 100%); min-height:200px;">
-                        <iconify-icon icon="lucide:coffee" width="34" class="text-[#D4AF37] opacity-70 mb-3"></iconify-icon>
-                        <span class="text-xs text-white/40 tracking-widest uppercase">Karak Chai</span>
+                <div class="reveal rounded-2xl overflow-hidden" style="min-height:160px;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-5"
+                         style="background:linear-gradient(135deg,#0f0f0f 0%,#1a1200 100%);min-height:160px;">
+                        <iconify-icon icon="lucide:coffee" width="30" class="text-[#D4AF37] opacity-70 mb-2"></iconify-icon>
+                        <span class="text-[10px] text-white/40 tracking-widest uppercase">Karak Chai</span>
                     </div>
                 </div>
 
-                <div class="reveal rounded-2xl overflow-hidden" style="min-height:200px; transition-delay:160ms;">
-                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
-                         style="background: linear-gradient(135deg,#1a0008 0%,#2a0010 100%); min-height:200px;">
-                        <iconify-icon icon="lucide:cookie" width="34" class="text-[#F2C94C] opacity-70 mb-3"></iconify-icon>
-                        <span class="text-xs text-white/40 tracking-widest uppercase">Malva Pudding</span>
+                <div class="reveal rounded-2xl overflow-hidden" style="min-height:160px;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-5"
+                         style="background:linear-gradient(135deg,#1a0008 0%,#2a0010 100%);min-height:160px;">
+                        <iconify-icon icon="lucide:cookie" width="30" class="text-[#F2C94C] opacity-70 mb-2"></iconify-icon>
+                        <span class="text-[10px] text-white/40 tracking-widest uppercase">Malva Pudding</span>
                     </div>
                 </div>
 
-                <div class="reveal rounded-2xl overflow-hidden" style="min-height:200px; transition-delay:200ms;">
-                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
-                         style="background: linear-gradient(135deg,#001812 0%,#002a1a 100%); min-height:200px;">
-                        <iconify-icon icon="lucide:fish" width="34" class="text-[#D4AF37] opacity-70 mb-3"></iconify-icon>
-                        <span class="text-xs text-white/40 tracking-widest uppercase">Grilled Salmon</span>
+                <div class="reveal rounded-2xl overflow-hidden" style="min-height:160px;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-5"
+                         style="background:linear-gradient(135deg,#001812 0%,#002a1a 100%);min-height:160px;">
+                        <iconify-icon icon="lucide:fish" width="30" class="text-[#D4AF37] opacity-70 mb-2"></iconify-icon>
+                        <span class="text-[10px] text-white/40 tracking-widest uppercase">Grilled Salmon</span>
                     </div>
                 </div>
 
-                <div class="reveal g-tall rounded-2xl overflow-hidden" style="min-height:260px; transition-delay:240ms;">
-                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
-                         style="background: linear-gradient(160deg,#12120f 0%,#2a2000 100%);">
-                        <iconify-icon icon="lucide:sandwich" width="40" class="text-[#F2A900] opacity-60 mb-3"></iconify-icon>
-                        <span class="text-xs text-white/40 tracking-widest uppercase">Smash Burger</span>
+                <div class="reveal g-tall rounded-2xl overflow-hidden" style="min-height:200px;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-5"
+                         style="background:linear-gradient(160deg,#12120f 0%,#2a2000 100%);">
+                        <iconify-icon icon="lucide:sandwich" width="36" class="text-[#F2A900] opacity-60 mb-2"></iconify-icon>
+                        <span class="text-[10px] text-white/40 tracking-widest uppercase">Smash Burger</span>
                     </div>
                 </div>
 
@@ -593,206 +691,197 @@
     </section>
 
 
-
     <!-- ═══════════════════════════════════════════════
-         CUSTOMER TESTIMONIALS
+         TESTIMONIALS
     ════════════════════════════════════════════════ -->
-    <section id="testimonials" class="py-32 relative overflow-hidden">
+    <section id="testimonials" class="py-20 md:py-32 relative overflow-hidden">
 
-        <!-- Subtle glow bg -->
         <div class="absolute inset-0 pointer-events-none"
-             style="background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(212,175,55,0.05) 0%, transparent 70%);"></div>
+             style="background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(212,175,55,0.05) 0%,transparent 70%);"></div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
 
-            <div class="reveal text-center mb-16">
+            <div class="reveal text-center mb-10 md:mb-16">
                 <div class="flame-divider"></div>
-                <h2 class="text-4xl md:text-6xl font-serif">
+                <h2 class="text-3xl sm:text-4xl md:text-6xl font-serif">
                     Customer <span class="italic text-[#D4AF37]">Testimonials</span>
                 </h2>
-                <p class="mt-4 text-gray-500 text-base">Real words from real guests — straight from the grill to your heart.</p>
+                <p class="mt-3 md:mt-4 text-gray-500 text-sm md:text-base">Real words from real guests — straight from the grill to your heart.</p>
             </div>
 
-            <!-- Carousel wrapper -->
+            <!-- Carousel -->
             <div class="relative max-w-5xl mx-auto" id="testimonial-carousel">
 
-                <!-- Track -->
                 <div id="testimonial-track" class="overflow-hidden">
                     <div id="testimonial-slides" class="flex transition-transform duration-700 ease-in-out">
 
-                        <!-- Slide 1: Myusha + Axel -->
-                        <div class="testimonial-slide min-w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-8 flex flex-col justify-between">
+                        <!-- Slide 1 -->
+                        <div class="testimonial-slide min-w-full grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-6 md:p-8 flex flex-col justify-between">
                                 <div>
-                                    <span class="text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
-                                    <p class="text-white/75 text-base leading-relaxed -mt-4">
+                                    <span class="text-4xl md:text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
+                                    <p class="text-white/75 text-sm md:text-base leading-relaxed -mt-2">
                                         The food is absolutely divine and flavorful, the portions are huge and the staff are amazing. A definite recommendation to anyone looking for an extremely affordable taste of South Africa ❤️
                                     </p>
                                 </div>
-                                <div class="mt-8">
-                                    <div class="flex gap-1 mb-3">
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
+                                <div class="mt-6">
+                                    <div class="flex gap-1 mb-2">
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
                                     <p class="text-white font-semibold text-sm">Myusha Maharaj</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Grille House Reviewed, Flavour You Can Trust</p>
                                 </div>
                             </div>
-
-                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-8 flex flex-col justify-between" style="transition-delay:120ms;">
+                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-6 md:p-8 flex flex-col justify-between" style="transition-delay:120ms;">
                                 <div>
-                                    <span class="text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
-                                    <p class="text-white/75 text-base leading-relaxed -mt-4">
+                                    <span class="text-4xl md:text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
+                                    <p class="text-white/75 text-sm md:text-base leading-relaxed -mt-2">
                                         Very good meat, lots of choice and good service. The restaurant is attractively decorated. Definitely recommended to eat once.
                                     </p>
                                 </div>
-                                <div class="mt-8">
-                                    <div class="flex gap-1 mb-3">
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
+                                <div class="mt-6">
+                                    <div class="flex gap-1 mb-2">
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
                                     <p class="text-white font-semibold text-sm">Axel V</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Looks as good as it tastes!</p>
                                 </div>
                             </div>
-
                         </div>
 
-                        <!-- Slide 2: Zaaida + Marko -->
-                        <div class="testimonial-slide min-w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-8 flex flex-col justify-between">
+                        <!-- Slide 2 -->
+                        <div class="testimonial-slide min-w-full grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-6 md:p-8 flex flex-col justify-between">
                                 <div>
-                                    <span class="text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
-                                    <p class="text-white/75 text-base leading-relaxed -mt-4">
+                                    <span class="text-4xl md:text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
+                                    <p class="text-white/75 text-sm md:text-base leading-relaxed -mt-2">
                                         The very first place that truly reminded me of the flavours of SA.<br/><br/>
                                         Brilliant service, delicious food ♡♡♡ We giggled down the Family platter and Risoto before I got to take a picture.
                                     </p>
                                 </div>
-                                <div class="mt-8">
-                                    <div class="flex gap-1 mb-3">
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
+                                <div class="mt-6">
+                                    <div class="flex gap-1 mb-2">
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
                                     <p class="text-white font-semibold text-sm">Zaaida K</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Mzansi in RAK</p>
                                 </div>
                             </div>
-
-                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-8 flex flex-col justify-between" style="transition-delay:120ms;">
+                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-6 md:p-8 flex flex-col justify-between" style="transition-delay:120ms;">
                                 <div>
-                                    <span class="text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
-                                    <p class="text-white/75 text-base leading-relaxed -mt-4">
+                                    <span class="text-4xl md:text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
+                                    <p class="text-white/75 text-sm md:text-base leading-relaxed -mt-2">
                                         Lyn and Ervin were incredibly kind and friendly. The atmosphere was cozy and inviting. Now the food... absolutely amazing and super affordable. We'll definitely be coming back! Highly recommended!
                                     </p>
                                 </div>
-                                <div class="mt-8">
-                                    <div class="flex gap-1 mb-3">
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
+                                <div class="mt-6">
+                                    <div class="flex gap-1 mb-2">
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
                                     <p class="text-white font-semibold text-sm">Marko Hong</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Amazing Service</p>
                                 </div>
                             </div>
-
                         </div>
 
-                        <!-- Slide 3: Michay (single, centred) -->
-                        <div class="testimonial-slide min-w-full flex justify-center">
-
-                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-8 flex flex-col justify-between max-w-2xl w-full">
+                        <!-- Slide 3 -->
+                        <div class="testimonial-slide min-w-full flex justify-center px-0 md:px-12">
+                            <div class="reveal bg-[#111] border border-white/8 rounded-3xl p-6 md:p-8 flex flex-col justify-between w-full max-w-2xl">
                                 <div>
-                                    <span class="text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
-                                    <p class="text-white/75 text-base leading-relaxed -mt-4">
+                                    <span class="text-4xl md:text-5xl text-[#D4AF37]/20 font-serif leading-none select-none">&ldquo;</span>
+                                    <p class="text-white/75 text-sm md:text-base leading-relaxed -mt-2">
                                         I had an amazing dining experience at this steakhouse! The ambiance was warm and welcoming, perfect for both casual and special occasions. The staff were attentive, friendly, and made sure everything was just right.<br/><br/>
                                         The steak was cooked to perfection, tender, juicy, and full of flavor. The sides and sauces complemented it beautifully, and the portions were generous.
                                     </p>
                                 </div>
-                                <div class="mt-8">
-                                    <div class="flex gap-1 mb-3">
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
-                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="18"></iconify-icon>
+                                <div class="mt-6">
+                                    <div class="flex gap-1 mb-2">
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
+                                        <iconify-icon icon="lucide:star" class="text-[#D4AF37]" width="16"></iconify-icon>
                                     </div>
                                     <p class="text-white font-semibold text-sm">Michay Recosana</p>
                                     <p class="text-[#D4AF37] text-xs mt-1 italic">Amazing Service</p>
                                 </div>
                             </div>
-
                         </div>
 
-                    </div><!-- /slides -->
-                </div><!-- /track -->
+                    </div>
+                </div>
 
-                <!-- Prev / Next buttons -->
-                <button id="t-prev"
-                        class="absolute top-1/2 -translate-y-1/2 -left-5 md:-left-12 w-11 h-11 rounded-full border border-white/15
+                <!-- Prev / Next -->
+                <button id="t-prev" aria-label="Previous review"
+                        class="tap-target absolute top-1/2 -translate-y-1/2 -left-2 md:-left-14 w-11 h-11 rounded-full border border-white/15
                                bg-[#111] flex items-center justify-center text-white hover:border-[#D4AF37] hover:text-[#D4AF37]
-                               transition-all duration-300 z-10">
+                               active:scale-95 transition-all duration-300 z-10">
                     <iconify-icon icon="lucide:chevron-left" width="20"></iconify-icon>
                 </button>
-                <button id="t-next"
-                        class="absolute top-1/2 -translate-y-1/2 -right-5 md:-right-12 w-11 h-11 rounded-full border border-white/15
+                <button id="t-next" aria-label="Next review"
+                        class="tap-target absolute top-1/2 -translate-y-1/2 -right-2 md:-right-14 w-11 h-11 rounded-full border border-white/15
                                bg-[#111] flex items-center justify-center text-white hover:border-[#D4AF37] hover:text-[#D4AF37]
-                               transition-all duration-300 z-10">
+                               active:scale-95 transition-all duration-300 z-10">
                     <iconify-icon icon="lucide:chevron-right" width="20"></iconify-icon>
                 </button>
 
-                <!-- Dot indicators -->
-                <div class="flex items-center justify-center gap-3 mt-10" id="t-dots">
-                    <button class="t-dot w-2 h-2 rounded-full bg-[#D4AF37] transition-all duration-300" data-idx="0"></button>
-                    <button class="t-dot w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-idx="1"></button>
-                    <button class="t-dot w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-idx="2"></button>
+                <!-- Dots -->
+                <div class="flex items-center justify-center gap-3 mt-8 md:mt-10" id="t-dots">
+                    <button class="t-dot tap-target w-2 h-2 rounded-full bg-[#D4AF37] transition-all duration-300" data-idx="0" aria-label="Slide 1"></button>
+                    <button class="t-dot tap-target w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-idx="1" aria-label="Slide 2"></button>
+                    <button class="t-dot tap-target w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-idx="2" aria-label="Slide 3"></button>
                 </div>
 
-            </div><!-- /carousel -->
+            </div>
         </div>
     </section>
 
 
     <!-- ═══════════════════════════════════════════════
-         CONTACT / FOOTER
+         FOOTER / CONTACT
     ════════════════════════════════════════════════ -->
-    <footer id="contact" class="pt-24 pb-12 border-t border-white/5 relative overflow-hidden">
+    <footer id="contact" class="pt-16 md:pt-24 pb-24 md:pb-12 border-t border-white/5 relative overflow-hidden">
+        <!-- extra bottom padding on mobile so content clears the floating WA button -->
 
-        <!-- Gold-tinted glow -->
         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
-             style="background: radial-gradient(ellipse, rgba(212,175,55,0.06) 0%, transparent 70%);"></div>
+             style="background:radial-gradient(ellipse,rgba(212,175,55,0.06) 0%,transparent 70%);"></div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
 
             <!-- Big wordmark -->
-            <div class="reveal w-full mb-16 overflow-hidden">
-                <h2 class="text-[12vw] leading-[0.8] tracking-tighter font-bold text-white/5 select-none pointer-events-none font-serif whitespace-nowrap">
+            <div class="reveal w-full mb-12 md:mb-16 overflow-hidden">
+                <h2 class="text-[14vw] md:text-[12vw] leading-[0.8] tracking-tighter font-bold text-white/5 select-none pointer-events-none font-serif whitespace-nowrap">
                     GRILLE&nbsp;HOUSE.
                 </h2>
             </div>
 
-            <!-- Info grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+            <!-- Info grid — stack on mobile -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 mb-12 md:mb-16">
 
                 <!-- Address & Hours -->
                 <div class="reveal">
                     <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Find Us</h4>
-                    <p class="text-white text-sm leading-relaxed mb-2">3B St – Al Dhait –<br/>Ras Al Khaimah –<br/>United Arab Emirates</p>
+                    <p class="text-white text-sm leading-relaxed mb-3">
+                        3B St – Al Dhait –<br/>Ras Al Khaimah –<br/>United Arab Emirates
+                    </p>
                     <a href="tel:+971543792267"
-                       class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#D4AF37] transition-colors mt-2">
+                       class="tap-target inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                         <iconify-icon icon="lucide:phone" width="14"></iconify-icon>
                         +971 54 379 2267
                     </a>
@@ -805,57 +894,56 @@
                     </div>
                 </div>
 
-                <!-- Online -->
+                <!-- Online & Socials -->
                 <div class="reveal" style="transition-delay:100ms;">
                     <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Online</h4>
                     <a href="https://grillehouse.ae" target="_blank" rel="noopener"
-                       class="flex items-center gap-2 text-sm text-gray-400 hover:text-[#D4AF37] transition-colors mb-3">
+                       class="tap-target flex items-center gap-2 text-sm text-gray-400 hover:text-[#D4AF37] transition-colors mb-3">
                         <iconify-icon icon="lucide:globe" width="14"></iconify-icon>
                         grillehouse.ae
                     </a>
-                    <div class="flex gap-4 mt-6">
+                    <div class="flex gap-3 mt-5">
                         <a href="#" aria-label="Instagram"
-                           class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center
-                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 transition-all duration-300">
-                            <iconify-icon icon="mdi:instagram" width="16"></iconify-icon>
+                           class="tap-target w-10 h-10 rounded-full border border-white/10 flex items-center justify-center
+                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 active:scale-95 transition-all duration-300">
+                            <iconify-icon icon="mdi:instagram" width="18"></iconify-icon>
                         </a>
                         <a href="#" aria-label="Facebook"
-                           class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center
-                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 transition-all duration-300">
-                            <iconify-icon icon="mdi:facebook" width="16"></iconify-icon>
+                           class="tap-target w-10 h-10 rounded-full border border-white/10 flex items-center justify-center
+                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 active:scale-95 transition-all duration-300">
+                            <iconify-icon icon="mdi:facebook" width="18"></iconify-icon>
                         </a>
                         <a href="#" aria-label="TikTok"
-                           class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center
-                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 transition-all duration-300">
-                            <iconify-icon icon="ic:baseline-tiktok" width="16"></iconify-icon>
+                           class="tap-target w-10 h-10 rounded-full border border-white/10 flex items-center justify-center
+                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 active:scale-95 transition-all duration-300">
+                            <iconify-icon icon="ic:baseline-tiktok" width="18"></iconify-icon>
                         </a>
                         <a href="https://wa.me/971543792267" target="_blank" rel="noopener" aria-label="WhatsApp"
-                           class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center
-                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 transition-all duration-300">
-                            <iconify-icon icon="mdi:whatsapp" width="16"></iconify-icon>
+                           class="tap-target w-10 h-10 rounded-full border border-white/10 flex items-center justify-center
+                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 active:scale-95 transition-all duration-300">
+                            <iconify-icon icon="mdi:whatsapp" width="18"></iconify-icon>
                         </a>
                     </div>
                 </div>
 
-                <!-- Language toggle placeholder + Book -->
+                <!-- Language + Reserve -->
                 <div class="reveal" style="transition-delay:200ms;">
                     <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Language</h4>
                     <div class="flex gap-2 mb-8">
                         <button id="lang-en"
-                                class="px-4 py-2 rounded-full text-xs font-semibold bg-[#D4AF37] text-black transition-all">
+                                class="tap-target px-4 py-2 rounded-full text-xs font-semibold bg-[#D4AF37] text-black transition-all">
                             English
                         </button>
                         <button id="lang-ar"
-                                class="px-4 py-2 rounded-full text-xs font-semibold border border-white/20 text-gray-400
+                                class="tap-target px-4 py-2 rounded-full text-xs font-semibold border border-white/20 text-gray-400
                                        hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all">
                             العربية
                         </button>
                     </div>
-
                     <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
                        target="_blank" rel="noopener"
-                       class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold
-                              bg-[#C8102E] text-white hover:bg-[#e0142e] hover:scale-105 transition-all duration-300">
+                       class="tap-target inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold
+                              bg-[#C8102E] text-white hover:bg-[#e0142e] active:scale-95 transition-all duration-300">
                         <iconify-icon icon="lucide:phone-call" width="14"></iconify-icon>
                         Reserve Now
                     </a>
@@ -864,7 +952,7 @@
             </div>
 
             <!-- Bottom bar -->
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-3 pt-6 border-t border-white/5 text-center md:text-left">
                 <p class="text-xs text-gray-600">
                     © <span id="copy-year">2024</span> Grille House – Eat &amp; Meet. All rights reserved.
                 </p>
@@ -883,40 +971,36 @@
     <script>
         // 1. Reveal on scroll
         const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
         // 2. Navbar scroll effect
         const nav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 60) {
-                nav.classList.add('py-4', 'backdrop-blur-md', 'border-b', 'border-white/5');
-                nav.classList.remove('py-7');
-                nav.style.background = 'rgba(10,10,10,0.88)';
+                nav.classList.add('py-3', 'backdrop-blur-md', 'border-b', 'border-white/5');
+                nav.classList.remove('py-5', 'py-7');
+                nav.style.background = 'rgba(10,10,10,0.9)';
             } else {
-                nav.classList.remove('py-4', 'backdrop-blur-md', 'border-b', 'border-white/5');
-                nav.classList.add('py-7');
+                nav.classList.remove('py-3', 'backdrop-blur-md', 'border-b', 'border-white/5');
+                nav.classList.add('py-5');
                 nav.style.background = 'transparent';
             }
-        });
+        }, { passive: true });
 
-        // 3. Parallax cards
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
-            document.querySelectorAll('.parallax-card-up').forEach(el => {
-                el.style.setProperty('--scroll-offset-up', `${scrolled * -0.045}px`);
-            });
-            document.querySelectorAll('.parallax-card-down').forEach(el => {
-                el.style.setProperty('--scroll-offset-down', `${scrolled * 0.045}px`);
-            });
-        });
+        // 3. Parallax cards (desktop only)
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', () => {
+                const s = window.scrollY;
+                document.querySelectorAll('.parallax-card-up').forEach(el =>
+                    el.style.setProperty('--scroll-offset-up', `${s * -0.045}px`));
+                document.querySelectorAll('.parallax-card-down').forEach(el =>
+                    el.style.setProperty('--scroll-offset-down', `${s * 0.045}px`));
+            }, { passive: true });
+        }
 
-        // 4. Live clock (RAK — UTC+4)
+        // 4. Live RAK clock
         function updateTime() {
             const el = document.getElementById('current-time');
             if (!el) return;
@@ -929,20 +1013,22 @@
         setInterval(updateTime, 30000);
         updateTime();
 
-        // 5. Hero parallax fade
+        // 5. Hero parallax fade (desktop only)
         const heroWrapper = document.getElementById('hero-content-wrapper');
-        window.addEventListener('scroll', () => {
-            const s = window.scrollY;
-            if (s < 900) {
-                heroWrapper.style.transform = `translateY(${s * 0.35}px)`;
-                heroWrapper.style.opacity   = Math.max(0, 1 - s / 550);
-            }
-        });
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', () => {
+                const s = window.scrollY;
+                if (s < 900) {
+                    heroWrapper.style.transform = `translateY(${s * 0.35}px)`;
+                    heroWrapper.style.opacity   = Math.max(0, 1 - s / 550);
+                }
+            }, { passive: true });
+        }
 
         // 6. Copyright year
         document.getElementById('copy-year').textContent = new Date().getFullYear();
 
-        // 7. Language toggle (UI stub)
+        // 7. Language toggle
         const btnEn = document.getElementById('lang-en');
         const btnAr = document.getElementById('lang-ar');
         btnEn.addEventListener('click', () => {
@@ -961,12 +1047,15 @@
             document.documentElement.setAttribute('dir','rtl');
             document.documentElement.setAttribute('lang','ar');
         });
-        // 8. Testimonials carousel
+
+        // 8. Testimonials carousel + swipe
         (function () {
-            const slides = document.getElementById('testimonial-slides');
-            const dots   = document.querySelectorAll('.t-dot');
-            const total  = 3;
-            let current  = 0;
+            const slides  = document.getElementById('testimonial-slides');
+            const dots    = document.querySelectorAll('.t-dot');
+            const total   = 3;
+            let current   = 0;
+            let startX    = 0;
+            let isDragging = false;
 
             function goTo(idx) {
                 current = (idx + total) % total;
@@ -983,9 +1072,44 @@
             document.getElementById('t-prev').addEventListener('click', () => goTo(current - 1));
             dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
 
+            // Touch swipe support
+            const track = document.getElementById('testimonial-track');
+            track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; }, { passive: true });
+            track.addEventListener('touchend', e => {
+                if (!isDragging) return;
+                const diff = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+                isDragging = false;
+            });
+
             // Auto-advance every 6s
             setInterval(() => goTo(current + 1), 6000);
         })();
+
+        // 9. Mobile drawer
+        const toggle    = document.getElementById('menu-toggle');
+        const closeBtn  = document.getElementById('menu-close');
+        const drawer    = document.getElementById('mobile-menu');
+        const backdrop  = document.getElementById('menu-backdrop');
+        const drawerLinks = document.querySelectorAll('.drawer-link');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            backdrop.classList.remove('opacity-0','pointer-events-none');
+            backdrop.classList.add('opacity-100');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            backdrop.classList.add('opacity-0','pointer-events-none');
+            backdrop.classList.remove('opacity-100');
+            document.body.style.overflow = '';
+        }
+
+        toggle.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        backdrop.addEventListener('click', closeDrawer);
+        drawerLinks.forEach(l => l.addEventListener('click', closeDrawer));
     </script>
 </body>
 </html>
