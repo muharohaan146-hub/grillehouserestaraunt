@@ -196,8 +196,31 @@
                 <a href="#contact" class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Contact</a>
             </div>
 
-            <!-- Right side: Book CTA + Hamburger -->
-            <div class="flex items-center gap-3">
+            <!-- Right side: Order buttons + Book CTA + Hamburger -->
+            <div class="flex items-center gap-2 md:gap-2.5">
+
+                <!-- Talabat — lg screens only -->
+                <a href="https://www.talabat.com/uae/restaurant/723772/grille-house-restaurant?aid=3921"
+                   target="_blank" rel="noopener"
+                   class="tap-target hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold
+                          bg-[#FF6B00] text-white hover:bg-[#ff8124] active:scale-95 transition-all duration-300">
+                    <iconify-icon icon="lucide:shopping-bag" width="13"></iconify-icon>
+                    Talabat
+                </a>
+
+                <!-- Noon — lg screens only -->
+                <a href="https://food.noon.com/uae-en/outlet/GRLLHS70KR/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
+                   target="_blank" rel="noopener"
+                   class="tap-target hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold
+                          bg-[#FEEE00] text-black hover:bg-[#fff176] active:scale-95 transition-all duration-300">
+                    <iconify-icon icon="lucide:shopping-cart" width="13"></iconify-icon>
+                    Noon
+                </a>
+
+                <!-- Divider line — lg only -->
+                <span class="hidden lg:block w-px h-5 bg-white/15 mx-0.5"></span>
+
+                <!-- Book a Table (sm+) -->
                 <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
                    target="_blank" rel="noopener"
                    class="btn-gold-pulse tap-target hidden sm:inline-flex items-center justify-center
@@ -252,13 +275,27 @@
         </nav>
 
         <!-- Drawer CTA -->
-        <div class="px-6 pb-8 pb-safe">
+        <div class="px-6 pb-8 pb-safe flex flex-col gap-3">
             <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
                target="_blank" rel="noopener"
                class="tap-target flex items-center justify-center gap-2 w-full py-3.5 rounded-full text-sm font-bold
                       bg-[#D4AF37] text-black active:bg-[#F2C94C] transition-colors">
                 <iconify-icon icon="mdi:whatsapp" width="18"></iconify-icon>
                 Book a Table on WhatsApp
+            </a>
+            <a href="https://www.talabat.com/uae/restaurant/723772/grille-house-restaurant?aid=3921"
+               target="_blank" rel="noopener"
+               class="tap-target flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-bold
+                      bg-[#FF6B00] text-white active:opacity-80 transition-colors">
+                <iconify-icon icon="lucide:shopping-bag" width="16"></iconify-icon>
+                Order on Talabat
+            </a>
+            <a href="https://food.noon.com/uae-en/outlet/GRLLHS70KR/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
+               target="_blank" rel="noopener"
+               class="tap-target flex items-center justify-center gap-2 w-full py-3 rounded-full text-sm font-bold
+                      bg-[#FEEE00] text-black active:opacity-80 transition-colors">
+                <iconify-icon icon="lucide:shopping-cart" width="16"></iconify-icon>
+                Order on Noon
             </a>
         </div>
     </div>
