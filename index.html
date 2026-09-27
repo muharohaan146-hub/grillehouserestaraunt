@@ -522,29 +522,59 @@
             </div>
 
             <!-- Interactive Flipbook Menu -->
-            <div class="reveal mt-8 md:mt-12 mx-auto flex justify-center w-full max-w-5xl">
+            <div class="reveal mt-8 md:mt-12 mx-auto flex justify-center w-full max-w-4xl">
                 <div id="flipbook" class="bg-[#111] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 mx-auto">
                     <!-- Page 1 (Cover) -->
-                    <div class="page bg-black" data-density="hard">
-                        <img src="images/menu-1-cover.jpg" alt="Menu Cover" class="w-full h-full object-cover">
+                    <div class="page bg-[#0a0a0a]" data-density="hard">
+                        <img src="images/menu-1-cover.jpg" alt="Menu Cover" class="w-full h-full object-fill pointer-events-none">
                     </div>
-                    <!-- Page 2 (Appetisers & Salads) -->
-                    <div class="page bg-[#1c1d22]">
-                        <img src="images/menu-2-appetisers.png" alt="Appetisers" class="w-full h-full object-contain pointer-events-none">
+
+                    <!-- Page 2 (Appetisers & Salads - Left) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-2-appetisers.png" alt="Appetisers Left" class="absolute top-0 left-0 w-[200%] h-full object-fill max-w-none pointer-events-none">
                     </div>
-                    <!-- Page 3 (Burgers & Steaks) -->
-                    <div class="page bg-[#1c1d22]">
-                        <img src="images/menu-3-burgers.png" alt="Burgers and Steaks" class="w-full h-full object-contain pointer-events-none">
+                    <!-- Page 3 (Appetisers & Salads - Right) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-2-appetisers.png" alt="Appetisers Right" class="absolute top-0 left-[-100%] w-[200%] h-full object-fill max-w-none pointer-events-none">
                     </div>
-                    <!-- Page 4 (Family Platters & Chicken) -->
-                    <div class="page bg-[#1c1d22]">
-                        <img src="images/menu-4-platters.png" alt="Family Platters" class="w-full h-full object-contain pointer-events-none">
+
+                    <!-- Page 4 (Burgers & Steaks - Left) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-3-burgers.png" alt="Burgers Left" class="absolute top-0 left-0 w-[200%] h-full object-fill max-w-none pointer-events-none">
                     </div>
-                    <!-- Page 5 (Pasta, Kids, Desserts, Sides) -->
-                    <div class="page bg-[#1c1d22]">
-                        <img src="images/menu-5-desserts.png" alt="Desserts and Kids" class="w-full h-full object-contain pointer-events-none">
+                    <!-- Page 5 (Burgers & Steaks - Right) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-3-burgers.png" alt="Burgers Right" class="absolute top-0 left-[-100%] w-[200%] h-full object-fill max-w-none pointer-events-none">
                     </div>
-                    <!-- Page 6 (Back Cover) -->
+
+                    <!-- Page 6 (Platters & Chicken - Left) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-4-platters.png" alt="Platters Left" class="absolute top-0 left-0 w-[200%] h-full object-fill max-w-none pointer-events-none">
+                    </div>
+                    <!-- Page 7 (Platters & Chicken - Right) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-4-platters.png" alt="Platters Right" class="absolute top-0 left-[-100%] w-[200%] h-full object-fill max-w-none pointer-events-none">
+                    </div>
+
+                    <!-- Page 8 (Desserts & Sides - Left) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-5-desserts.png" alt="Desserts Left" class="absolute top-0 left-0 w-[200%] h-full object-fill max-w-none pointer-events-none">
+                    </div>
+                    <!-- Page 9 (Desserts & Sides - Right) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-5-desserts.png" alt="Desserts Right" class="absolute top-0 left-[-100%] w-[200%] h-full object-fill max-w-none pointer-events-none">
+                    </div>
+
+                    <!-- Page 10 (Drinks - Left) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-6-drinks.png" alt="Drinks Left" class="absolute top-0 left-0 w-[200%] h-full object-fill max-w-none pointer-events-none">
+                    </div>
+                    <!-- Page 11 (Drinks - Right) -->
+                    <div class="page bg-[#212226]">
+                        <img src="images/menu-6-drinks.png" alt="Drinks Right" class="absolute top-0 left-[-100%] w-[200%] h-full object-fill max-w-none pointer-events-none">
+                    </div>
+
+                    <!-- Page 12 (Back Cover) -->
                     <div class="page bg-[#0a0a0a]" data-density="hard">
                         <div class="w-full h-full flex flex-col items-center justify-center p-8 text-center border-l border-white/10">
                             <svg width="60" height="70" viewBox="0 0 38 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="opacity-30">
@@ -1167,16 +1197,16 @@
 
         // 10. Flipbook Menu Initialization
         const pageFlip = new St.PageFlip(document.getElementById('flipbook'), {
-            width: 500, // base width
-            height: 700, // base height
+            width: 512, // perfect half of 1024
+            height: 720, // perfect height
             size: "stretch",
             minWidth: 315,
             maxWidth: 1000,
-            minHeight: 420,
+            minHeight: 442,
             maxHeight: 1400,
             maxShadowOpacity: 0.5,
             showCover: true,
-            mobileScrollSupport: false, // keep scrolling disabled while interacting
+            mobileScrollSupport: false,
             flippingTime: 1200,
             usePortrait: true,
             startPage: 0
