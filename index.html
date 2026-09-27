@@ -38,6 +38,35 @@
 
         .font-serif { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
 
+        
+        @keyframes panBg {
+            from { background-position: 0 0; }
+            to { background-position: -200px -200px; }
+        }
+        
+        .organic-box-1 { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .organic-box-2 { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .organic-box-3 { border-radius: 30% 70% 60% 40% / 50% 30% 70% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .organic-box-4 { border-radius: 70% 30% 40% 60% / 40% 60% 50% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        
+        .center-blob {
+            border-radius: 12px 12px 12px 12px;
+            /* Using a squarer organic shape as requested "professional transparent box" */
+            border-radius: 4% 3% 5% 4% / 3% 4% 3% 5%;
+            border: 2px solid rgba(255,255,255,0.9);
+            background: rgba(10,10,10,0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        .scroll-blob {
+            border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%;
+            border: 2px solid rgba(255,255,255,0.9);
+            background: rgba(10,10,10,0.4);
+            backdrop-filter: blur(12px);
+        }
+
         /* ── Reveal Animation ── */
         .reveal {
             opacity: 0;
@@ -312,118 +341,126 @@
     <!-- ═══════════════════════════════════════════════
          HERO
     ════════════════════════════════════════════════ -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 md:pt-32 pb-16 md:pb-20">
+    <style>
+        @keyframes panBg {
+            from { background-position: 0 0; }
+            to { background-position: -400px -200px; }
+        }
+        .organic-box-1 { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .organic-box-2 { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .organic-box-3 { border-radius: 30% 70% 60% 40% / 50% 30% 70% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .organic-box-4 { border-radius: 70% 30% 40% 60% / 40% 60% 50% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        
+        .center-blob {
+            border-radius: 3% 4% 6% 3% / 4% 3% 5% 4%;
+            border: 2px solid rgba(255,255,255,0.9);
+            background: rgba(10,10,10,0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 0 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.05);
+        }
 
-        <!-- Atmospheric bg -->
-        <div class="absolute inset-0 z-0 pointer-events-none select-none">
-            <div class="absolute inset-0"
-                 style="background:radial-gradient(ellipse 80% 60% at 50% 60%,
-                        rgba(212,175,55,0.12) 0%,rgba(180,60,10,0.08) 40%,transparent 70%);"></div>
-            <div class="absolute inset-0 opacity-30"
-                 style="background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,
-                        rgba(255,255,255,0.012) 2px,rgba(255,255,255,0.012) 4px);"></div>
-            <div class="absolute bottom-0 left-0 right-0 h-48"
-                 style="background:linear-gradient(to bottom,transparent,#0a0a0a);"></div>
+        .scroll-blob {
+            border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%;
+            border: 2px solid rgba(255,255,255,0.9);
+            background: rgba(10,10,10,0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+
+    <section class="relative min-h-screen flex items-stretch overflow-hidden pt-24 pb-8">
+
+        <!-- Background Video / Image -->
+        <div class="absolute inset-0 z-0 bg-[#0a0a0a]">
+            <!-- Subtle gradient to mimic the old design -->
+            <div class="absolute inset-0" style="background:radial-gradient(ellipse 80% 60% at 50% 60%, rgba(212,175,55,0.12) 0%,rgba(180,60,10,0.08) 40%,transparent 70%);"></div>
         </div>
 
-        <!-- Floating flame (left — hidden on small mobile) -->
-        <div class="hidden sm:block absolute -left-[8%] top-[10%] w-[35vw] max-w-[480px] z-10
-                    pointer-events-none animate-float-left opacity-20">
-            <svg viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 330 C40 280 10 220 30 160 C50 100 80 80 60 20
-                         C90 60 110 40 120 80 C140 40 160 60 150 110
-                         C175 90 185 130 170 170 C190 160 200 200 180 240
-                         C160 300 130 320 100 330Z" fill="url(#flameL)" opacity="0.9"/>
-                <defs>
-                    <linearGradient id="flameL" x1="100" y1="330" x2="100" y2="0" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%"   stop-color="#D4AF37"/>
-                        <stop offset="50%"  stop-color="#F2A900"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0.4"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
+        <div class="container mx-auto px-4 md:px-6 w-full relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-10 min-h-[85vh]">
 
-        <!-- Floating flame (right — hidden on small mobile) -->
-        <div class="hidden sm:block absolute -right-[8%] bottom-[5%] w-[28vw] max-w-[400px] z-10
-                    pointer-events-none animate-float-right opacity-15">
-            <svg viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 330 C40 280 10 220 30 160 C50 100 80 80 60 20
-                         C90 60 110 40 120 80 C140 40 160 60 150 110
-                         C175 90 185 130 170 170 C190 160 200 200 180 240
-                         C160 300 130 320 100 330Z" fill="url(#flameR)" opacity="0.9"/>
-                <defs>
-                    <linearGradient id="flameR" x1="100" y1="330" x2="100" y2="0" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%"   stop-color="#D4AF37"/>
-                        <stop offset="60%"  stop-color="#F2A900"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0.3"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-
-        <!-- Hero content -->
-        <div class="container mx-auto px-4 md:px-6 relative z-20 text-center flex flex-col items-center">
-            <div id="hero-content-wrapper" class="max-w-4xl mx-auto w-full">
-
-                <!-- Eyebrow badge -->
-                <div class="reveal mb-6 md:mb-8 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full
-                            border border-[#D4AF37]/30 text-[#D4AF37] text-[10px] md:text-xs tracking-widest uppercase">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] inline-block"></span>
-                    Premium Steakhouse · Ras Al Khaimah
+            <!-- LEFT SHAPES -->
+            <div class="hidden md:flex flex-col gap-6 w-[22%] h-[75vh] py-8">
+                <div class="organic-box-1 flex-1 overflow-hidden transition-transform duration-500 hover:scale-105 relative group">
+                    <img src="images/gallery-1.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
                 </div>
-
-                <!-- Main heading -->
-                <div class="reveal" style="transition-delay:120ms;">
-                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.05] tracking-tight mb-5 font-serif gold-glow">
-                        GRILLE HOUSE<br/>
-                        <span class="italic text-white/80">EAT &amp; MEET.</span>
-                    </h1>
+                <div class="organic-box-2 flex-1 overflow-hidden transition-transform duration-500 hover:scale-105 relative group">
+                    <img src="images/gallery-8.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
                 </div>
-
-                <!-- Slogan -->
-                <div class="reveal" style="transition-delay:240ms;">
-                    <p class="text-base md:text-xl text-white/70 max-w-xl mx-auto mb-10 md:mb-12 font-black leading-relaxed tracking-wide">
-                        Where the flavour meets the flame.
-                    </p>
-                </div>
-
-                <!-- CTA buttons — full width on mobile -->
-                <div class="reveal flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 md:gap-4 px-4 sm:px-0"
-                     style="transition-delay:360ms;">
-                    <a href="#menu"
-                       class="tap-target flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-black
-                              bg-[#D4AF37] text-black hover:bg-[#F2C94C] active:bg-[#F2C94C] transition-all duration-300">
-                        View Menu
-                    </a>
-                    <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
-                       target="_blank" rel="noopener"
-                       class="tap-target flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-black
-                              border border-white/20 bg-white/5 text-white hover:border-[#D4AF37]/60
-                              active:bg-white/10 transition-all duration-300">
-                        <iconify-icon icon="mdi:whatsapp" width="16"></iconify-icon>
-                        Book a Table
-                    </a>
-                </div>
-
-                <!-- Scroll cue -->
-                <div class="reveal mt-14 md:mt-20 flex flex-col items-center gap-2 text-white/30" style="transition-delay:500ms;">
-                    <span class="text-[10px] tracking-widest uppercase">Scroll</span>
-                    <iconify-icon icon="lucide:chevron-down" class="text-[#D4AF37] bounce-y" width="20"></iconify-icon>
-                </div>
-
-                <!-- Live time -->
-                <div class="reveal flex items-center justify-center gap-4 text-[10px] text-white/30 uppercase tracking-widest mt-6 font-mono"
-                     style="transition-delay:560ms;">
-                    <span id="current-time">--:-- --</span>
-                    <span class="w-px h-3 bg-white/20"></span>
-                    <span>Ras Al Khaimah, UAE</span>
-                </div>
-
             </div>
+
+            <!-- CENTER BOX -->
+            <div class="w-full md:w-[50%] flex flex-col items-center justify-center h-full">
+                
+                <div class="center-blob relative w-full p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center overflow-hidden">
+                     
+                     <!-- Neon Background Pattern -->
+                     <div class="absolute inset-0 pointer-events-none z-0" 
+                          style="background-image: url('images/neon-pattern.svg'); background-size: 400px 200px; animation: panBg 30s linear infinite; opacity: 0.6; mix-blend-mode: screen;"></div>
+
+                     <div class="relative z-10 text-center w-full">
+                         <!-- Eyebrow badge -->
+                         <div class="reveal mb-6 md:mb-8 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 rounded-full
+                                     border border-[#D4AF37]/30 text-[#D4AF37] text-[10px] md:text-xs tracking-widest uppercase bg-[#D4AF37]/5 backdrop-blur-md">
+                             <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] inline-block"></span>
+                             Premium Steakhouse · Ras Al Khaimah
+                         </div>
+                         
+                         <h1 class="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.05] tracking-tight mb-5 font-serif gold-glow drop-shadow-2xl">
+                            GRILLE HOUSE<br/>
+                            <span class="italic text-white">EAT &amp; MEET.</span>
+                         </h1>
+                         
+                         <p class="text-base md:text-xl text-white/80 max-w-xl mx-auto mb-10 md:mb-12 font-black leading-relaxed tracking-wide drop-shadow-lg">
+                            Where the flavour meets the flame.
+                         </p>
+                         
+                         <div class="reveal flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 md:gap-4 px-4 sm:px-0 w-full max-w-md mx-auto">
+                            <a href="#menu"
+                               class="tap-target flex items-center justify-center px-8 py-3.5 rounded-full text-sm font-black
+                                      bg-[#D4AF37] text-black hover:bg-[#F2C94C] active:bg-[#F2C94C] transition-all duration-300">
+                                View Menu
+                            </a>
+                            <a href="https://api.whatsapp.com/send/?phone=971543792267&text&type=phone_number&app_absent=0"
+                               target="_blank" rel="noopener"
+                               class="tap-target flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-black
+                                      border border-white/20 bg-white/5 text-white hover:border-[#D4AF37]/60
+                                      active:bg-white/10 transition-all duration-300">
+                                <iconify-icon icon="mdi:whatsapp" width="16"></iconify-icon>
+                                Book a Table
+                            </a>
+                         </div>
+                     </div>
+                </div>
+
+                <!-- Scroll Blob -->
+                <div class="flex flex-col items-center mt-8">
+                    <a href="#about" class="scroll-blob w-32 h-20 text-white/60 hover:text-white transition-all hover:scale-110 flex flex-col items-center justify-center group cursor-pointer shadow-xl mb-4">
+                        <span class="text-[9px] tracking-[0.3em] font-black uppercase mb-1 group-hover:text-[#D4AF37] transition-colors">Scroll</span>
+                        <iconify-icon icon="lucide:chevron-down" class="group-hover:text-[#D4AF37] transition-colors group-hover:translate-y-1 duration-300" width="18"></iconify-icon>
+                    </a>
+                    
+                    <!-- Time & Location (like user drawing) -->
+                    <div class="flex items-center gap-4 text-[9px] md:text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">
+                        <span id="live-time">8:08 PM</span>
+                        <span class="w-px h-3 bg-white/20"></span>
+                        <span>Ras Al Khaimah, UAE</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SHAPES -->
+            <div class="hidden md:flex flex-col gap-8 w-[22%] h-[75vh] py-8">
+                <div class="organic-box-3 flex-1 overflow-hidden transition-transform duration-500 hover:scale-105 relative group">
+                    <img src="images/gallery-7.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" style="object-position: center;">
+                </div>
+                <div class="organic-box-4 flex-1 overflow-hidden transition-transform duration-500 hover:scale-105 relative group">
+                    <img src="images/gallery-5.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                </div>
+            </div>
+
         </div>
     </section>
-
 
     <!-- ═══════════════════════════════════════════════
          ABOUT / MISSION
@@ -1211,6 +1248,43 @@
         });
 
         pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+    </script>
+
+    <!-- Live Clock Script -->
+    <script>
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; 
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            const strTime = hours + ':' + minutes + ' ' + ampm;
+            const timeEl = document.getElementById('live-time');
+            if(timeEl) timeEl.textContent = strTime;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+
+
+    <!-- Live Clock Script -->
+    <script>
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; 
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            const strTime = hours + ':' + minutes + ' ' + ampm;
+            const timeEl = document.getElementById('live-time');
+            if(timeEl) timeEl.textContent = strTime;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
     </script>
 </body>
 </html>
