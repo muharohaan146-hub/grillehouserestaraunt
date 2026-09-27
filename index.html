@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grille House – Eat & Meet | Where the Flavour Meets the Flame</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:      #0a0a0a;
+            --gold:    #D4AF37;
+            --gold-lt: #F2C94C;
+            --red:     #C8102E;
+            --card:    #111111;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        /* ── Reveal Animation ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Floating crest animations ── */
+        @keyframes float-left {
+            0%,100% { transform: translateY(0)   rotate(0deg); }
+            50%      { transform: translateY(-18px) rotate(2deg); }
+        }
+        @keyframes float-right {
+            0%,100% { transform: translateY(0)   rotate(0deg); }
+            50%      { transform: translateY(18px)  rotate(-2deg); }
+        }
+        .animate-float-left  { animation: float-left  12s ease-in-out infinite; }
+        .animate-float-right { animation: float-right 14s ease-in-out infinite; }
+
+        /* ── Noise texture ── */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0.04;
+            mix-blend-mode: overlay;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+        }
+
+        /* ── Parallax helpers ── */
+        .parallax-card-up   { transform: translateY(var(--scroll-offset-up,   0px)); }
+        .parallax-card-down { transform: translateY(var(--scroll-offset-down,  0px)); }
+
+        /* ── Gold glow ── */
+        .gold-glow { text-shadow: 0 0 24px rgba(212,175,55,0.55); }
+
+        /* ── Flame line ── */
+        .flame-divider {
+            width: 60px; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+            border-radius: 2px;
+            margin: 0 auto 24px;
+        }
+
+        /* ── Menu card hover ── */
+        .menu-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+        .menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 48px rgba(212,175,55,0.18);
+        }
+
+        /* ── Gold border pulse on CTA ── */
+        @keyframes border-pulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+            50%      { box-shadow: 0 0 0 8px rgba(212,175,55,0); }
+        }
+        .btn-gold-pulse { animation: border-pulse 2.4s ease-in-out infinite; }
+
+        /* ── Gallery mosaic ── */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+        .gallery-grid .g-tall { grid-row: span 2; }
+
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-grid .g-tall { grid-row: span 1; }
+        }
+
+        /* ── Scroll indicator ── */
+        @keyframes bounce-y {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(8px); }
+        }
+        .bounce-y { animation: bounce-y 1.8s ease-in-out infinite; }
+
+        /* ── Arabic RTL note badge ── */
+        .lang-badge {
+            background: rgba(212,175,55,0.12);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <!-- Noise overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         NAVIGATION
+    ════════════════════════════════════════════════ -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-7">
+        <div class="container mx-auto px-6 flex items-center justify-between">
+
+            <!-- Logo mark -->
+            <a href="#" class="flex items-center gap-3 group">
+                <!-- SVG crest icon: crossed cleaver & knife inside shield -->
+                <svg width="38" height="42" viewBox="0 0 38 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform duration-300 group-hover:scale-110">
+                    <path d="M19 2 L36 10 L36 24 C36 33 28 39 19 41 C10 39 2 33 2 24 L2 10 Z" stroke="#D4AF37" stroke-width="1.8" fill="rgba(212,175,55,0.07)"/>
+                    <!-- cleaver -->
+                    <line x1="10" y1="14" x2="28" y2="30" stroke="#D4AF37" stroke-width="2.2" stroke-linecap="round"/>
+                    <rect x="8" y="10" width="9" height="6" rx="1" fill="#D4AF37" opacity="0.9"/>
+                    <!-- knife -->
+                    <line x1="28" y1="14" x2="10" y2="30" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>
+                    <polygon points="28,10 32,14 26,16" fill="#ffffff" opacity="0.85"/>
+                </svg>
+                <div class="leading-tight">
+                    <div class="text-base font-bold tracking-widest uppercase text-[#D4AF37] font-serif">Grille House</div>
+                    <div class="text-[9px] tracking-[0.25em] text-white/50 uppercase">Eat &amp; Meet</div>
+                </div>
+            </a>
+
+            <!-- Desktop links -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about"    class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Our Story</a>
+                <a href="#menu"     class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Menu</a>
+                <a href="#gallery"  class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Gallery</a>
+                <a href="#contact"  class="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors duration-300">Contact</a>
+            </div>
+
+            <!-- CTA -->
+            <a href="#contact"
+               class="btn-gold-pulse inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold
+                      bg-[#D4AF37] text-black hover:bg-[#F2C94C] hover:scale-105 transition-all duration-300">
+                Book a Table
+            </a>
+        </div>
+    </nav>
+
+
+    <!-- ═══════════════════════════════════════════════
+         HERO
+    ════════════════════════════════════════════════ -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20">
+
+        <!-- Dark atmospheric background -->
+        <div class="absolute inset-0 z-0 pointer-events-none select-none">
+            <!-- Ember glow radial -->
+            <div class="absolute inset-0"
+                 style="background: radial-gradient(ellipse 80% 60% at 50% 60%,
+                        rgba(212,175,55,0.12) 0%, rgba(180,60,10,0.08) 40%, transparent 70%);"></div>
+            <!-- Subtle charcoal texture overlay -->
+            <div class="absolute inset-0 opacity-30"
+                 style="background-image: repeating-linear-gradient(
+                        0deg, transparent, transparent 2px,
+                        rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px);"></div>
+            <!-- Bottom fade -->
+            <div class="absolute bottom-0 left-0 right-0 h-48"
+                 style="background: linear-gradient(to bottom, transparent, #0a0a0a);"></div>
+        </div>
+
+        <!-- Floating decorative flames (left) -->
+        <div class="absolute -left-[8%] top-[10%] w-[35vw] max-w-[480px] z-10 pointer-events-none animate-float-left opacity-25">
+            <svg viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 330 C40 280 10 220 30 160 C50 100 80 80 60 20 C90 60 110 40 120 80 C140 40 160 60 150 110 C175 90 185 130 170 170 C190 160 200 200 180 240 C160 300 130 320 100 330Z"
+                      fill="url(#flameGradL)" opacity="0.9"/>
+                <defs>
+                    <linearGradient id="flameGradL" x1="100" y1="330" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%"   stop-color="#D4AF37"/>
+                        <stop offset="50%"  stop-color="#F2A900"/>
+                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.4"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Floating decorative flames (right) -->
+        <div class="absolute -right-[8%] bottom-[5%] w-[30vw] max-w-[420px] z-10 pointer-events-none animate-float-right opacity-20">
+            <svg viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 330 C40 280 10 220 30 160 C50 100 80 80 60 20 C90 60 110 40 120 80 C140 40 160 60 150 110 C175 90 185 130 170 170 C190 160 200 200 180 240 C160 300 130 320 100 330Z"
+                      fill="url(#flameGradR)" opacity="0.9"/>
+                <defs>
+                    <linearGradient id="flameGradR" x1="100" y1="330" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%"   stop-color="#D4AF37"/>
+                        <stop offset="60%"  stop-color="#F2A900"/>
+                        <stop offset="100%" stop-color="#fff" stop-opacity="0.3"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Hero content -->
+        <div class="container mx-auto px-6 relative z-20 text-center flex flex-col items-center">
+            <div id="hero-content-wrapper" class="max-w-4xl mx-auto">
+
+                <!-- Eyebrow badge -->
+                <div class="reveal mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full
+                            border border-[#D4AF37]/30 bg-[#D4AF37]/08 text-[#D4AF37] text-xs tracking-widest uppercase">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] inline-block"></span>
+                    Premium Steakhouse · Ras Al Khaimah
+                </div>
+
+                <!-- Main heading -->
+                <div class="reveal" style="transition-delay:120ms;">
+                    <h1 class="text-5xl md:text-7xl font-medium leading-[1.05] tracking-tight mb-6 font-serif gold-glow">
+                        Grille House<br/>
+                        <span class="italic font-light text-white/80">Eat &amp; Meet.</span>
+                    </h1>
+                </div>
+
+                <!-- Slogan -->
+                <div class="reveal" style="transition-delay:240ms;">
+                    <p class="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-12 font-light leading-relaxed tracking-wide">
+                        Where the flavour meets the flame.
+                    </p>
+                </div>
+
+                <!-- CTA buttons -->
+                <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4" style="transition-delay:360ms;">
+                    <a href="#menu"
+                       class="px-8 py-3.5 rounded-full text-sm font-semibold bg-[#D4AF37] text-black
+                              hover:bg-[#F2C94C] hover:scale-105 transition-all duration-300">
+                        View Menu
+                    </a>
+                    <a href="#contact"
+                       class="px-8 py-3.5 rounded-full text-sm font-semibold border border-white/20
+                              bg-white/5 text-white hover:border-[#D4AF37]/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                        Book a Table
+                    </a>
+                </div>
+
+                <!-- Scroll cue -->
+                <div class="reveal mt-20 flex flex-col items-center gap-2 text-white/30" style="transition-delay:500ms;">
+                    <span class="text-xs tracking-widest uppercase">Scroll</span>
+                    <iconify-icon icon="lucide:chevron-down" class="text-[#D4AF37] bounce-y" width="20"></iconify-icon>
+                </div>
+
+                <!-- Live time -->
+                <div class="reveal flex items-center justify-center gap-4 text-[10px] text-white/30 uppercase tracking-widest mt-8 font-mono"
+                     style="transition-delay:560ms;">
+                    <span id="current-time">--:-- --</span>
+                    <span class="w-px h-3 bg-white/20"></span>
+                    <span>Ras Al Khaimah, UAE</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════
+         ABOUT / MISSION
+    ════════════════════════════════════════════════ -->
+    <section id="about" class="py-32 relative">
+        <div class="container mx-auto px-6">
+
+            <div class="max-w-4xl mx-auto text-center reveal">
+                <div class="flame-divider"></div>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl leading-tight text-white/90 mb-10 font-serif">
+                    Fire-kissed perfection.<br/>
+                    <span class="text-[#D4AF37] italic">South African soul.</span>
+                </h2>
+                <p class="text-lg md:text-xl text-gray-400 leading-relaxed font-light max-w-2xl mx-auto">
+                    Grille House is a premium steakhouse rooted in the art of charcoal grilling and the warmth of South African and Portuguese culinary tradition. From slow-smoked Brisket and Short Ribs to flame-grilled Piri Piri chicken, every dish is crafted with obsessive attention to heat, time, and flavour.
+                </p>
+            </div>
+
+            <!-- Brand pillars row -->
+            <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+
+                <div class="reveal text-center group" style="transition-delay:80ms;">
+                    <div class="w-14 h-14 mx-auto mb-5 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
+                                group-hover:border-[#D4AF37] transition-colors duration-300">
+                        <iconify-icon icon="lucide:flame" width="26" class="text-[#D4AF37]"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Slow-Smoked Meats</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Premium Brisket, Short Ribs &amp; Boerewors smoked low and slow over real charcoal.</p>
+                </div>
+
+                <div class="reveal text-center group" style="transition-delay:180ms;">
+                    <div class="w-14 h-14 mx-auto mb-5 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
+                                group-hover:border-[#D4AF37] transition-colors duration-300">
+                        <iconify-icon icon="lucide:beef" width="26" class="text-[#D4AF37]"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Premium Steaks</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Ribeye, Rump, Tenderloin &amp; T-Bone — graded, aged, and cooked to your exact liking.</p>
+                </div>
+
+                <div class="reveal text-center group" style="transition-delay:280ms;">
+                    <div class="w-14 h-14 mx-auto mb-5 rounded-full border border-[#D4AF37]/30 flex items-center justify-center
+                                group-hover:border-[#D4AF37] transition-colors duration-300">
+                        <iconify-icon icon="lucide:globe" width="26" class="text-[#D4AF37]"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">SA &amp; Portuguese Fusion</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Authentic flavours from two great grilling traditions — Pap, Malva Pudding, and Piri Piri.</p>
+                </div>
+
+            </div>
+
+            <!-- Logo word-marks strip (partner/trust bar) -->
+            <div class="mt-24 flex flex-wrap items-center justify-center gap-10 opacity-30 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-700">
+                <span class="reveal font-bold text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:0ms;">CHARCOAL GRILL</span>
+                <span class="reveal font-bold text-sm tracking-[0.3em]"               style="transition-delay:80ms;">SLOW SMOKE</span>
+                <span class="reveal font-bold text-sm tracking-[0.3em] text-[#D4AF37]" style="transition-delay:160ms;">SOUTH AFRICA</span>
+                <span class="reveal font-bold text-sm tracking-[0.3em]"               style="transition-delay:240ms;">PIRI PIRI</span>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════
+         MENU HIGHLIGHTS  (parallax cards layout)
+    ════════════════════════════════════════════════ -->
+    <section id="menu" class="py-40 relative overflow-hidden">
+
+        <!-- Dot pattern bg -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-8 pointer-events-none"
+             style="background-image: radial-gradient(circle, #2a2a2a 1px, transparent 1px); background-size: 38px 38px;">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+
+            <div class="reveal mb-20 text-center">
+                <div class="flame-divider"></div>
+                <h2 class="text-5xl md:text-7xl font-serif">
+                    Explore<br/>
+                    <span class="italic text-[#D4AF37]">the flame.</span>
+                </h2>
+                <p class="mt-5 text-gray-500 text-base max-w-lg mx-auto">
+                    A bilingual menu (English &amp; Arabic) designed to share with everyone at the table.
+                    <span class="lang-badge ml-2 px-2 py-0.5 rounded text-xs font-medium">EN / AR</span>
+                </p>
+            </div>
+
+            <!-- 2-column parallax card grid — same layout as Superdesign "works" -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+                <!-- Card 1: Premium Meats (gold) -->
+                <div class="parallax-card-down">
+                    <div class="reveal menu-card bg-[#D4AF37] rounded-3xl p-8 md:p-12 aspect-[4/5]
+                                flex flex-col justify-between shadow-2xl group cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <div class="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center
+                                        group-hover:rotate-45 transition-transform duration-500">
+                                <iconify-icon icon="lucide:beef" class="text-black text-xl"></iconify-icon>
+                            </div>
+                            <span class="text-black/70 font-medium text-sm border border-black/20 px-3 py-1 rounded-full">01</span>
+                        </div>
+                        <div>
+                            <h3 class="text-4xl md:text-5xl text-black mb-4 leading-none tracking-tight font-serif">
+                                Premium<br/>Steaks
+                            </h3>
+                            <ul class="text-black/75 text-base leading-relaxed space-y-1">
+                                <li>· Ribeye &amp; T-Bone</li>
+                                <li>· Rump &amp; Tenderloin</li>
+                                <li>· Slow-Smoked Brisket</li>
+                                <li>· Short Ribs</li>
+                            </ul>
+                        </div>
+                        <div class="w-full h-px bg-black/10 mt-8"></div>
+                    </div>
+                </div>
+
+                <!-- Card 2: SA Specialties (dark) -->
+                <div class="parallax-card-up md:mt-24">
+                    <div class="reveal menu-card bg-[#111] border border-white/10 rounded-3xl p-8 md:p-12 aspect-[4/5]
+                                flex flex-col justify-between shadow-2xl group cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-500"
+                         style="transition-delay:150ms;">
+                        <div class="flex justify-between items-start">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center
+                                        group-hover:scale-110 transition-transform duration-500">
+                                <iconify-icon icon="lucide:globe" class="text-[#D4AF37] text-xl"></iconify-icon>
+                            </div>
+                            <span class="text-white/40 font-medium text-sm border border-white/10 px-3 py-1 rounded-full">02</span>
+                        </div>
+                        <div>
+                            <h3 class="text-4xl md:text-5xl text-white mb-4 leading-none tracking-tight font-serif">
+                                SA<br/>Classics
+                            </h3>
+                            <ul class="text-gray-400 text-base leading-relaxed space-y-1">
+                                <li>· Boerewors Roll</li>
+                                <li>· Pap &amp; Tomato Chutney</li>
+                                <li>· Malva Pudding</li>
+                                <li>· Milk Tart &amp; Koeksisters</li>
+                            </ul>
+                        </div>
+                        <div class="w-full h-px bg-white/10 mt-8"></div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Poultry & Seafood (dark) -->
+                <div class="parallax-card-down">
+                    <div class="reveal menu-card bg-[#111] border border-white/10 rounded-3xl p-8 md:p-12 aspect-[4/5]
+                                flex flex-col justify-between shadow-2xl group cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-500"
+                         style="transition-delay:220ms;">
+                        <div class="flex justify-between items-start">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center
+                                        group-hover:rotate-12 transition-transform duration-500">
+                                <iconify-icon icon="lucide:fish" class="text-[#D4AF37] text-xl"></iconify-icon>
+                            </div>
+                            <span class="text-white/40 font-medium text-sm border border-white/10 px-3 py-1 rounded-full">03</span>
+                        </div>
+                        <div>
+                            <h3 class="text-4xl md:text-5xl text-white mb-4 leading-none tracking-tight font-serif">
+                                Poultry &amp;<br/>Seafood
+                            </h3>
+                            <ul class="text-gray-400 text-base leading-relaxed space-y-1">
+                                <li>· Piri Piri Grilled Chicken</li>
+                                <li>· Grilled Salmon</li>
+                                <li>· SA Fish &amp; Chips</li>
+                            </ul>
+                        </div>
+                        <div class="w-full h-px bg-white/10 mt-8"></div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Drinks & Desserts (gold) -->
+                <div class="parallax-card-up md:mt-24">
+                    <div class="reveal menu-card bg-[#D4AF37] rounded-3xl p-8 md:p-12 aspect-[4/5]
+                                flex flex-col justify-between shadow-2xl group cursor-pointer"
+                         style="transition-delay:330ms;">
+                        <div class="flex justify-between items-start">
+                            <div class="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center
+                                        group-hover:-rotate-12 transition-transform duration-500">
+                                <iconify-icon icon="lucide:coffee" class="text-black text-xl"></iconify-icon>
+                            </div>
+                            <span class="text-black/60 font-medium text-sm border border-black/20 px-3 py-1 rounded-full">04</span>
+                        </div>
+                        <div>
+                            <h3 class="text-4xl md:text-5xl text-black mb-4 leading-none tracking-tight font-serif">
+                                Sips &amp;<br/>Sweets
+                            </h3>
+                            <ul class="text-black/75 text-base leading-relaxed space-y-1">
+                                <li>· Rooibos Tea</li>
+                                <li>· Mathka Karak &amp; Saffron Chai</li>
+                                <li>· Classic Mojitos &amp; Mocktails</li>
+                                <li>· Avalanche Slushies</li>
+                            </ul>
+                        </div>
+                        <div class="w-full h-px bg-black/10 mt-8"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════
+         SPECIALTY CALLOUT BAND
+    ════════════════════════════════════════════════ -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0" style="background: linear-gradient(135deg, #D4AF37 0%, #8B6914 100%); opacity: 0.07;"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+
+                <div class="reveal flex-1 text-center md:text-left">
+                    <h3 class="text-3xl md:text-4xl font-serif text-[#D4AF37] mb-4">
+                        Family Platters &amp;<br/>Gourmet Burgers
+                    </h3>
+                    <p class="text-gray-400 text-base leading-relaxed">
+                        Our sharing platters are built for the whole table. Choose from Smash Burgers, Brisket Burgers, toasted sandwiches, wraps, and pasta — plus a dedicated Kids' Menu so the little ones eat like royalty too.
+                    </p>
+                </div>
+
+                <div class="reveal flex-shrink-0" style="transition-delay:200ms;">
+                    <!-- Decorative dish icon -->
+                    <div class="w-52 h-52 rounded-full border-2 border-[#D4AF37]/30 flex items-center justify-center
+                                relative bg-[#111]">
+                        <div class="absolute inset-4 rounded-full border border-[#D4AF37]/15"></div>
+                        <iconify-icon icon="lucide:utensils" width="64" class="text-[#D4AF37] opacity-80"></iconify-icon>
+                    </div>
+                </div>
+
+                <div class="reveal flex-1 text-center md:text-right" style="transition-delay:180ms;">
+                    <h3 class="text-3xl md:text-4xl font-serif text-white mb-4">
+                        Bilingual<br/>Experience
+                    </h3>
+                    <p class="text-gray-400 text-base leading-relaxed">
+                        Every item on our menu is presented in both English and Arabic — because great food speaks every language.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════
+         GALLERY
+    ════════════════════════════════════════════════ -->
+    <section id="gallery" class="py-32 relative">
+        <div class="container mx-auto px-6">
+
+            <div class="reveal text-center mb-16">
+                <div class="flame-divider"></div>
+                <h2 class="text-4xl md:text-6xl font-serif">
+                    Feast your<br/>
+                    <span class="italic text-[#D4AF37]">eyes first.</span>
+                </h2>
+                <p class="mt-4 text-gray-500 text-base">Charcoal. Fire. Flavour.</p>
+            </div>
+
+            <!-- Masonry-style gallery using CSS grid with color-block placeholders -->
+            <div class="gallery-grid max-w-5xl mx-auto">
+
+                <div class="reveal g-tall rounded-2xl overflow-hidden aspect-[3/4] md:aspect-auto"
+                     style="background: linear-gradient(160deg,#1c1c1c 0%,#2a2200 100%); min-height:260px;"
+                     style="transition-delay:0ms;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
+                         style="background: linear-gradient(160deg,#111 0%,#2a1a00 100%);">
+                        <iconify-icon icon="lucide:beef" width="40" class="text-[#D4AF37] opacity-60 mb-3"></iconify-icon>
+                        <span class="text-xs text-white/40 tracking-widest uppercase">Ribeye</span>
+                    </div>
+                </div>
+
+                <div class="reveal rounded-2xl overflow-hidden" style="min-height:200px; transition-delay:80ms;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
+                         style="background: linear-gradient(135deg,#181800 0%,#3a2800 100%); min-height:200px;">
+                        <iconify-icon icon="lucide:flame" width="34" class="text-[#F2A900] opacity-70 mb-3"></iconify-icon>
+                        <span class="text-xs text-white/40 tracking-widest uppercase">Slow Smoke</span>
+                    </div>
+                </div>
+
+                <div class="reveal rounded-2xl overflow-hidden" style="min-height:200px; transition-delay:120ms;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
+                         style="background: linear-gradient(135deg,#0f0f0f 0%,#1a1200 100%); min-height:200px;">
+                        <iconify-icon icon="lucide:coffee" width="34" class="text-[#D4AF37] opacity-70 mb-3"></iconify-icon>
+                        <span class="text-xs text-white/40 tracking-widest uppercase">Karak Chai</span>
+                    </div>
+                </div>
+
+                <div class="reveal rounded-2xl overflow-hidden" style="min-height:200px; transition-delay:160ms;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
+                         style="background: linear-gradient(135deg,#1a0008 0%,#2a0010 100%); min-height:200px;">
+                        <iconify-icon icon="lucide:cookie" width="34" class="text-[#F2C94C] opacity-70 mb-3"></iconify-icon>
+                        <span class="text-xs text-white/40 tracking-widest uppercase">Malva Pudding</span>
+                    </div>
+                </div>
+
+                <div class="reveal rounded-2xl overflow-hidden" style="min-height:200px; transition-delay:200ms;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
+                         style="background: linear-gradient(135deg,#001812 0%,#002a1a 100%); min-height:200px;">
+                        <iconify-icon icon="lucide:fish" width="34" class="text-[#D4AF37] opacity-70 mb-3"></iconify-icon>
+                        <span class="text-xs text-white/40 tracking-widest uppercase">Grilled Salmon</span>
+                    </div>
+                </div>
+
+                <div class="reveal g-tall rounded-2xl overflow-hidden" style="min-height:260px; transition-delay:240ms;">
+                    <div class="w-full h-full flex flex-col items-center justify-end p-6"
+                         style="background: linear-gradient(160deg,#12120f 0%,#2a2000 100%);">
+                        <iconify-icon icon="lucide:sandwich" width="40" class="text-[#F2A900] opacity-60 mb-3"></iconify-icon>
+                        <span class="text-xs text-white/40 tracking-widest uppercase">Smash Burger</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════
+         CONTACT / FOOTER
+    ════════════════════════════════════════════════ -->
+    <footer id="contact" class="pt-24 pb-12 border-t border-white/5 relative overflow-hidden">
+
+        <!-- Gold-tinted glow -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
+             style="background: radial-gradient(ellipse, rgba(212,175,55,0.06) 0%, transparent 70%);"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+
+            <!-- Big wordmark -->
+            <div class="reveal w-full mb-16 overflow-hidden">
+                <h2 class="text-[12vw] leading-[0.8] tracking-tighter font-bold text-white/5 select-none pointer-events-none font-serif whitespace-nowrap">
+                    GRILLE&nbsp;HOUSE.
+                </h2>
+            </div>
+
+            <!-- Info grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+
+                <!-- Address & Hours -->
+                <div class="reveal">
+                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Find Us</h4>
+                    <p class="text-white text-sm leading-relaxed mb-2">3B Street, Al Dhait<br/>Ras Al Khaimah, UAE</p>
+                    <a href="tel:+971543792267"
+                       class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#D4AF37] transition-colors mt-2">
+                        <iconify-icon icon="lucide:phone" width="14"></iconify-icon>
+                        +971 54 379 2267
+                    </a>
+                    <div class="mt-4 px-4 py-3 rounded-xl bg-[#C8102E]/15 border border-[#C8102E]/30">
+                        <p class="text-xs text-white/70 leading-relaxed">
+                            <span class="text-[#C8102E] font-semibold">Opening Hours</span><br/>
+                            Mon – Sun: 11:00 AM – 11:00 PM
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Online -->
+                <div class="reveal" style="transition-delay:100ms;">
+                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Online</h4>
+                    <a href="https://grillehouse.ae" target="_blank" rel="noopener"
+                       class="flex items-center gap-2 text-sm text-gray-400 hover:text-[#D4AF37] transition-colors mb-3">
+                        <iconify-icon icon="lucide:globe" width="14"></iconify-icon>
+                        grillehouse.ae
+                    </a>
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" aria-label="Instagram"
+                           class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center
+                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 transition-all duration-300">
+                            <iconify-icon icon="mdi:instagram" width="16"></iconify-icon>
+                        </a>
+                        <a href="#" aria-label="Facebook"
+                           class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center
+                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 transition-all duration-300">
+                            <iconify-icon icon="mdi:facebook" width="16"></iconify-icon>
+                        </a>
+                        <a href="#" aria-label="TikTok"
+                           class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center
+                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 transition-all duration-300">
+                            <iconify-icon icon="ic:baseline-tiktok" width="16"></iconify-icon>
+                        </a>
+                        <a href="https://wa.me/971543792267" target="_blank" rel="noopener" aria-label="WhatsApp"
+                           class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center
+                                  hover:border-[#D4AF37] hover:text-[#D4AF37] text-gray-500 transition-all duration-300">
+                            <iconify-icon icon="mdi:whatsapp" width="16"></iconify-icon>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Language toggle placeholder + Book -->
+                <div class="reveal" style="transition-delay:200ms;">
+                    <h4 class="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 font-semibold">Language</h4>
+                    <div class="flex gap-2 mb-8">
+                        <button id="lang-en"
+                                class="px-4 py-2 rounded-full text-xs font-semibold bg-[#D4AF37] text-black transition-all">
+                            English
+                        </button>
+                        <button id="lang-ar"
+                                class="px-4 py-2 rounded-full text-xs font-semibold border border-white/20 text-gray-400
+                                       hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all">
+                            العربية
+                        </button>
+                    </div>
+
+                    <a href="tel:+971543792267"
+                       class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold
+                              bg-[#C8102E] text-white hover:bg-[#e0142e] hover:scale-105 transition-all duration-300">
+                        <iconify-icon icon="lucide:phone-call" width="14"></iconify-icon>
+                        Reserve Now
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+                <p class="text-xs text-gray-600">
+                    © <span id="copy-year">2024</span> Grille House – Eat &amp; Meet. All rights reserved.
+                </p>
+                <p class="text-xs text-gray-600 italic font-serif">
+                    "Where the flavour meets the flame."
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- ═══════════════════════════════════════════════
+         SCRIPTS
+    ════════════════════════════════════════════════ -->
+    <script>
+        // 1. Reveal on scroll
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // 2. Navbar scroll effect
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                nav.classList.add('py-4', 'backdrop-blur-md', 'border-b', 'border-white/5');
+                nav.classList.remove('py-7');
+                nav.style.background = 'rgba(10,10,10,0.88)';
+            } else {
+                nav.classList.remove('py-4', 'backdrop-blur-md', 'border-b', 'border-white/5');
+                nav.classList.add('py-7');
+                nav.style.background = 'transparent';
+            }
+        });
+
+        // 3. Parallax cards
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            document.querySelectorAll('.parallax-card-up').forEach(el => {
+                el.style.setProperty('--scroll-offset-up', `${scrolled * -0.045}px`);
+            });
+            document.querySelectorAll('.parallax-card-down').forEach(el => {
+                el.style.setProperty('--scroll-offset-down', `${scrolled * 0.045}px`);
+            });
+        });
+
+        // 4. Live clock (RAK — UTC+4)
+        function updateTime() {
+            const el = document.getElementById('current-time');
+            if (!el) return;
+            const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
+            let h = now.getHours(), m = now.getMinutes();
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            el.textContent = `${h}:${m.toString().padStart(2,'0')} ${ampm}`;
+        }
+        setInterval(updateTime, 30000);
+        updateTime();
+
+        // 5. Hero parallax fade
+        const heroWrapper = document.getElementById('hero-content-wrapper');
+        window.addEventListener('scroll', () => {
+            const s = window.scrollY;
+            if (s < 900) {
+                heroWrapper.style.transform = `translateY(${s * 0.35}px)`;
+                heroWrapper.style.opacity   = Math.max(0, 1 - s / 550);
+            }
+        });
+
+        // 6. Copyright year
+        document.getElementById('copy-year').textContent = new Date().getFullYear();
+
+        // 7. Language toggle (UI stub)
+        const btnEn = document.getElementById('lang-en');
+        const btnAr = document.getElementById('lang-ar');
+        btnEn.addEventListener('click', () => {
+            btnEn.classList.add('bg-[#D4AF37]','text-black');
+            btnEn.classList.remove('border','border-white/20','text-gray-400');
+            btnAr.classList.remove('bg-[#D4AF37]','text-black');
+            btnAr.classList.add('border','border-white/20','text-gray-400');
+            document.documentElement.setAttribute('dir','ltr');
+            document.documentElement.setAttribute('lang','en');
+        });
+        btnAr.addEventListener('click', () => {
+            btnAr.classList.add('bg-[#D4AF37]','text-black');
+            btnAr.classList.remove('border','border-white/20','text-gray-400');
+            btnEn.classList.remove('bg-[#D4AF37]','text-black');
+            btnEn.classList.add('border','border-white/20','text-gray-400');
+            document.documentElement.setAttribute('dir','rtl');
+            document.documentElement.setAttribute('lang','ar');
+        });
+    </script>
+</body>
+</html>
