@@ -7,6 +7,7 @@
     <title>Grille House – Eat &amp; Meet | Where the Flavour Meets the Flame</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -152,6 +153,20 @@
                 box-shadow: 0 4px 20px rgba(37,211,102,0.45);
                 text-decoration: none;
             }
+        }
+
+        /* ── Flipbook CSS ── */
+        .page {
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+        .page.--left {
+            border-right: 0;
+            box-shadow: inset -10px 0 30px rgba(0,0,0,0.5);
+        }
+        .page.--right {
+            border-left: 0;
+            box-shadow: inset 10px 0 30px rgba(0,0,0,0.5);
         }
     </style>
 </head>
@@ -506,115 +521,50 @@
                 </p>
             </div>
 
-            <!-- 2-col parallax grid — stacks on mobile -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
-
-                <!-- Card 1 — gold -->
-                <div class="parallax-card-down">
-                    <div class="reveal menu-card bg-[#D4AF37] rounded-3xl p-7 md:p-12 aspect-auto md:aspect-[4/5]
-                                flex flex-col justify-between shadow-2xl group cursor-pointer">
-                        <div class="flex justify-between items-start">
-                            <div class="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center
-                                        group-hover:rotate-45 transition-transform duration-500">
-                                <iconify-icon icon="lucide:beef" class="text-black text-xl"></iconify-icon>
-                            </div>
-                            <span class="text-black/70 font-medium text-sm border border-black/20 px-3 py-1 rounded-full">01</span>
+            <!-- Interactive Flipbook Menu -->
+            <div class="reveal mt-8 md:mt-12 mx-auto flex justify-center w-full max-w-5xl">
+                <div id="flipbook" class="bg-[#111] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 mx-auto">
+                    <!-- Page 1 (Cover) -->
+                    <div class="page bg-black" data-density="hard">
+                        <img src="images/menu-1-cover.jpg" alt="Menu Cover" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Page 2 (Appetisers & Salads) -->
+                    <div class="page bg-[#1c1d22]">
+                        <img src="images/menu-2-appetisers.png" alt="Appetisers" class="w-full h-full object-contain pointer-events-none">
+                    </div>
+                    <!-- Page 3 (Burgers & Steaks) -->
+                    <div class="page bg-[#1c1d22]">
+                        <img src="images/menu-3-burgers.png" alt="Burgers and Steaks" class="w-full h-full object-contain pointer-events-none">
+                    </div>
+                    <!-- Page 4 (Family Platters & Chicken) -->
+                    <div class="page bg-[#1c1d22]">
+                        <img src="images/menu-4-platters.png" alt="Family Platters" class="w-full h-full object-contain pointer-events-none">
+                    </div>
+                    <!-- Page 5 (Pasta, Kids, Desserts, Sides) -->
+                    <div class="page bg-[#1c1d22]">
+                        <img src="images/menu-5-desserts.png" alt="Desserts and Kids" class="w-full h-full object-contain pointer-events-none">
+                    </div>
+                    <!-- Page 6 (Back Cover) -->
+                    <div class="page bg-[#0a0a0a]" data-density="hard">
+                        <div class="w-full h-full flex flex-col items-center justify-center p-8 text-center border-l border-white/10">
+                            <svg width="60" height="70" viewBox="0 0 38 42" fill="none" xmlns="http://www.w3.org/2000/svg" class="opacity-30">
+                                <path d="M19 2 L36 10 L36 24 C36 33 28 39 19 41 C10 39 2 33 2 24 L2 10 Z" stroke="#D4AF37" stroke-width="1.8" fill="rgba(212,175,55,0.07)"/>
+                                <line x1="10" y1="14" x2="28" y2="30" stroke="#D4AF37" stroke-width="2.2" stroke-linecap="round"/>
+                                <rect x="8" y="10" width="9" height="6" rx="1" fill="#D4AF37" opacity="0.9"/>
+                                <line x1="28" y1="14" x2="10" y2="30" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>
+                                <polygon points="28,10 32,14 26,16" fill="#ffffff" opacity="0.85"/>
+                            </svg>
+                            <h2 class="text-[#D4AF37] font-serif text-2xl mt-6 opacity-60">Grille House</h2>
+                            <p class="text-white/30 text-xs mt-2 uppercase tracking-widest">Eat &amp; Meet</p>
                         </div>
-                        <div class="mt-6 md:mt-0">
-                            <h3 class="text-3xl md:text-5xl text-black mb-4 leading-none tracking-tight font-serif">
-                                Premium<br/>Steaks
-                            </h3>
-                            <ul class="text-black/75 text-sm md:text-base leading-relaxed space-y-1">
-                                <li>· Ribeye &amp; T-Bone</li>
-                                <li>· Rump &amp; Tenderloin</li>
-                                <li>· Slow-Smoked Brisket</li>
-                                <li>· Short Ribs</li>
-                            </ul>
-                        </div>
-                        <div class="w-full h-px bg-black/10 mt-6"></div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Card 2 — dark -->
-                <div class="parallax-card-up md:mt-24">
-                    <div class="reveal menu-card bg-[#111] border border-white/10 rounded-3xl p-7 md:p-12 aspect-auto md:aspect-[4/5]
-                                flex flex-col justify-between shadow-2xl group cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-500"
-                         style="transition-delay:150ms;">
-                        <div class="flex justify-between items-start">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center
-                                        group-hover:scale-110 transition-transform duration-500">
-                                <iconify-icon icon="lucide:globe" class="text-[#D4AF37] text-xl"></iconify-icon>
-                            </div>
-                            <span class="text-white/40 font-medium text-sm border border-white/10 px-3 py-1 rounded-full">02</span>
-                        </div>
-                        <div class="mt-6 md:mt-0">
-                            <h3 class="text-3xl md:text-5xl text-white mb-4 leading-none tracking-tight font-serif">
-                                SA<br/>Classics
-                            </h3>
-                            <ul class="text-gray-400 text-sm md:text-base leading-relaxed space-y-1">
-                                <li>· Boerewors Roll</li>
-                                <li>· Pap &amp; Tomato Chutney</li>
-                                <li>· Malva Pudding</li>
-                                <li>· Milk Tart &amp; Koeksisters</li>
-                            </ul>
-                        </div>
-                        <div class="w-full h-px bg-white/10 mt-6"></div>
-                    </div>
-                </div>
-
-                <!-- Card 3 — dark -->
-                <div class="parallax-card-down">
-                    <div class="reveal menu-card bg-[#111] border border-white/10 rounded-3xl p-7 md:p-12 aspect-auto md:aspect-[4/5]
-                                flex flex-col justify-between shadow-2xl group cursor-pointer hover:border-[#D4AF37]/50 transition-all duration-500"
-                         style="transition-delay:220ms;">
-                        <div class="flex justify-between items-start">
-                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center
-                                        group-hover:rotate-12 transition-transform duration-500">
-                                <iconify-icon icon="lucide:fish" class="text-[#D4AF37] text-xl"></iconify-icon>
-                            </div>
-                            <span class="text-white/40 font-medium text-sm border border-white/10 px-3 py-1 rounded-full">03</span>
-                        </div>
-                        <div class="mt-6 md:mt-0">
-                            <h3 class="text-3xl md:text-5xl text-white mb-4 leading-none tracking-tight font-serif">
-                                Poultry &amp;<br/>Seafood
-                            </h3>
-                            <ul class="text-gray-400 text-sm md:text-base leading-relaxed space-y-1">
-                                <li>· Piri Piri Grilled Chicken</li>
-                                <li>· Grilled Salmon</li>
-                                <li>· SA Fish &amp; Chips</li>
-                            </ul>
-                        </div>
-                        <div class="w-full h-px bg-white/10 mt-6"></div>
-                    </div>
-                </div>
-
-                <!-- Card 4 — gold -->
-                <div class="parallax-card-up md:mt-24">
-                    <div class="reveal menu-card bg-[#D4AF37] rounded-3xl p-7 md:p-12 aspect-auto md:aspect-[4/5]
-                                flex flex-col justify-between shadow-2xl group cursor-pointer"
-                         style="transition-delay:330ms;">
-                        <div class="flex justify-between items-start">
-                            <div class="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center
-                                        group-hover:-rotate-12 transition-transform duration-500">
-                                <iconify-icon icon="lucide:coffee" class="text-black text-xl"></iconify-icon>
-                            </div>
-                            <span class="text-black/60 font-medium text-sm border border-black/20 px-3 py-1 rounded-full">04</span>
-                        </div>
-                        <div class="mt-6 md:mt-0">
-                            <h3 class="text-3xl md:text-5xl text-black mb-4 leading-none tracking-tight font-serif">
-                                Sips &amp;<br/>Sweets
-                            </h3>
-                            <ul class="text-black/75 text-sm md:text-base leading-relaxed space-y-1">
-                                <li>· Rooibos Tea</li>
-                                <li>· Mathka Karak &amp; Saffron Chai</li>
-                                <li>· Classic Mojitos &amp; Mocktails</li>
-                                <li>· Avalanche Slushies</li>
-                            </ul>
-                        </div>
-                        <div class="w-full h-px bg-black/10 mt-6"></div>
-                    </div>
-                </div>
-
+            <!-- Flip instructions -->
+            <div class="reveal text-center mt-8 text-white/40 text-sm flex items-center justify-center gap-2">
+                <iconify-icon icon="lucide:book-open" class="text-[#D4AF37]"></iconify-icon>
+                <span>Swipe, click, or drag corners to flip pages</span>
             </div>
         </div>
     </section>
@@ -1214,6 +1164,25 @@
         closeBtn.addEventListener('click', closeDrawer);
         backdrop.addEventListener('click', closeDrawer);
         drawerLinks.forEach(l => l.addEventListener('click', closeDrawer));
+
+        // 10. Flipbook Menu Initialization
+        const pageFlip = new St.PageFlip(document.getElementById('flipbook'), {
+            width: 500, // base width
+            height: 700, // base height
+            size: "stretch",
+            minWidth: 315,
+            maxWidth: 1000,
+            minHeight: 420,
+            maxHeight: 1400,
+            maxShadowOpacity: 0.5,
+            showCover: true,
+            mobileScrollSupport: false, // keep scrolling disabled while interacting
+            flippingTime: 1200,
+            usePortrait: true,
+            startPage: 0
+        });
+
+        pageFlip.loadFromHTML(document.querySelectorAll('.page'));
     </script>
 </body>
 </html>
