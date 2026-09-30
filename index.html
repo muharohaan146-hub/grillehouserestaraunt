@@ -44,11 +44,45 @@
             to { background-position: -200px -200px; }
         }
         
-        .organic-box-1 { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .organic-box-2 { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .organic-box-3 { border-radius: 30% 70% 60% 40% / 50% 30% 70% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .organic-box-4 { border-radius: 70% 30% 40% 60% / 40% 60% 50% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        
+                                        
+
+        @keyframes scrollVert {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .marquee-container {
+            overflow: hidden;
+            position: relative;
+            /* rectangular stripe */
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+        }
+        .marquee-content {
+            display: flex;
+            flex-direction: column;
+            animation: scrollVert 40s linear infinite;
+        }
+        /* less colored images */
+        .marquee-content img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(120%) brightness(0.6);
+            transition: filter 0.5s ease;
+        }
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+        }
+        .marquee-content img:hover {
+            filter: grayscale(0%) contrast(100%) brightness(1);
+        }
+        /* gradient masks for top and bottom fading */
+        .mask-vertical {
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
         .center-blob {
             border-radius: 12px 12px 12px 12px;
             /* Using a squarer organic shape as requested "professional transparent box" */
@@ -346,11 +380,45 @@
             from { background-position: 0 0; }
             to { background-position: -400px -200px; }
         }
-        .organic-box-1 { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .organic-box-2 { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .organic-box-3 { border-radius: 30% 70% 60% 40% / 50% 30% 70% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .organic-box-4 { border-radius: 70% 30% 40% 60% / 40% 60% 50% 50%; border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        
+                                        
+
+        @keyframes scrollVert {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .marquee-container {
+            overflow: hidden;
+            position: relative;
+            /* rectangular stripe */
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+        }
+        .marquee-content {
+            display: flex;
+            flex-direction: column;
+            animation: scrollVert 40s linear infinite;
+        }
+        /* less colored images */
+        .marquee-content img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: grayscale(80%) contrast(120%) brightness(0.6);
+            transition: filter 0.5s ease;
+        }
+        .marquee-container:hover .marquee-content {
+            animation-play-state: paused;
+        }
+        .marquee-content img:hover {
+            filter: grayscale(0%) contrast(100%) brightness(1);
+        }
+        /* gradient masks for top and bottom fading */
+        .mask-vertical {
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
         .center-blob {
             border-radius: 3% 4% 6% 3% / 4% 3% 5% 4%;
             border: 2px solid rgba(255,255,255,0.9);
@@ -380,12 +448,20 @@
         <div class="container mx-auto px-4 md:px-6 w-full relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-10 min-h-[85vh]">
 
             <!-- LEFT SHAPES -->
-            <div class="hidden md:flex flex-col gap-6 w-[22%] h-[75vh] py-8">
-                <div class="organic-box-1 flex-1 overflow-hidden transition-transform duration-500 hover:scale-105 relative group">
-                    <img src="images/gallery-1.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
-                </div>
-                <div class="organic-box-2 flex-1 overflow-hidden transition-transform duration-500 hover:scale-105 relative group">
-                    <img src="images/gallery-8.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+            <div class="hidden md:flex flex-col w-[20%] h-[80vh] py-4">
+                <div class="marquee-container w-full h-full rounded-xl mask-vertical shadow-2xl">
+                    <div class="marquee-content">
+                        <!-- First set -->
+                        <img src="images/gallery-1.jpg" alt="Gallery">
+                        <img src="images/gallery-6.jpg" alt="Gallery">
+                        <img src="images/gallery-8.jpg" alt="Gallery">
+                        <img src="images/gallery-4.jpg" alt="Gallery">
+                        <!-- Duplicate set for seamless looping -->
+                        <img src="images/gallery-1.jpg" alt="Gallery">
+                        <img src="images/gallery-6.jpg" alt="Gallery">
+                        <img src="images/gallery-8.jpg" alt="Gallery">
+                        <img src="images/gallery-4.jpg" alt="Gallery">
+                    </div>
                 </div>
             </div>
 
@@ -450,12 +526,20 @@
             </div>
 
             <!-- RIGHT SHAPES -->
-            <div class="hidden md:flex flex-col gap-8 w-[22%] h-[75vh] py-8">
-                <div class="organic-box-3 flex-1 overflow-hidden transition-transform duration-500 hover:scale-105 relative group">
-                    <img src="images/gallery-7.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" style="object-position: center;">
-                </div>
-                <div class="organic-box-4 flex-1 overflow-hidden transition-transform duration-500 hover:scale-105 relative group">
-                    <img src="images/gallery-5.jpg" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+            <div class="hidden md:flex flex-col w-[20%] h-[80vh] py-4">
+                <div class="marquee-container w-full h-full rounded-xl mask-vertical shadow-2xl">
+                    <div class="marquee-content" style="animation-direction: reverse; animation-duration: 45s;">
+                        <!-- First set -->
+                        <img src="images/gallery-5.jpg" alt="Gallery">
+                        <img src="images/gallery-7.jpg" alt="Gallery">
+                        <img src="images/gallery-9.jpg" alt="Gallery">
+                        <img src="images/gallery-10.jpg" alt="Gallery">
+                        <!-- Duplicate set for seamless looping -->
+                        <img src="images/gallery-5.jpg" alt="Gallery">
+                        <img src="images/gallery-7.jpg" alt="Gallery">
+                        <img src="images/gallery-9.jpg" alt="Gallery">
+                        <img src="images/gallery-10.jpg" alt="Gallery">
+                    </div>
                 </div>
             </div>
 
