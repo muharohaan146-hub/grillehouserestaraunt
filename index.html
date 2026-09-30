@@ -66,15 +66,19 @@
         /* less colored images */
         .marquee-content img {
             width: 100%;
-            height: 250px;
+            height: 160px;
             object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid rgba(255,255,255,0.85);
+            margin-bottom: 12px;
             filter: grayscale(80%) contrast(120%) brightness(0.6);
-            transition: filter 0.5s ease;
+            transition: filter 0.5s ease, transform 0.3s ease;
         }
         .marquee-container:hover .marquee-content {
             animation-play-state: paused;
         }
         .marquee-content img:hover {
+            transform: scale(1.05);
             filter: grayscale(0%) contrast(100%) brightness(1);
         }
         /* gradient masks for top and bottom fading */
@@ -402,15 +406,19 @@
         /* less colored images */
         .marquee-content img {
             width: 100%;
-            height: 250px;
+            height: 160px;
             object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid rgba(255,255,255,0.85);
+            margin-bottom: 12px;
             filter: grayscale(80%) contrast(120%) brightness(0.6);
-            transition: filter 0.5s ease;
+            transition: filter 0.5s ease, transform 0.3s ease;
         }
         .marquee-container:hover .marquee-content {
             animation-play-state: paused;
         }
         .marquee-content img:hover {
+            transform: scale(1.05);
             filter: grayscale(0%) contrast(100%) brightness(1);
         }
         /* gradient masks for top and bottom fading */
@@ -448,9 +456,9 @@
         <div class="container mx-auto px-4 md:px-6 w-full relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-10 min-h-[85vh]">
 
             <!-- LEFT SHAPES -->
-            <div class="hidden md:flex flex-col w-[20%] h-[80vh] py-4">
-                <div class="marquee-container w-full h-full rounded-xl mask-vertical shadow-2xl">
-                    <div class="marquee-content">
+            <div class="hidden md:flex flex-col w-[24%] h-[80vh] py-4">
+                <div class="marquee-container w-full h-full rounded-2xl mask-vertical shadow-2xl flex flex-row gap-3 p-3">
+                    <div class="marquee-content flex-1">
                         <!-- First set -->
                         <img src="images/gallery-1.jpg" alt="Gallery">
                         <img src="images/gallery-6.jpg" alt="Gallery">
@@ -462,11 +470,23 @@
                         <img src="images/gallery-8.jpg" alt="Gallery">
                         <img src="images/gallery-4.jpg" alt="Gallery">
                     </div>
+                    <div class="marquee-content flex-1" style="animation-direction: reverse; animation-duration: 32s;">
+                        <!-- First set -->
+                        <img src="images/gallery-5.jpg" alt="Gallery">
+                        <img src="images/gallery-10.jpg" alt="Gallery">
+                        <img src="images/gallery-7.jpg" alt="Gallery">
+                        <img src="images/gallery-9.jpg" alt="Gallery">
+                        <!-- Duplicate set for seamless looping -->
+                        <img src="images/gallery-5.jpg" alt="Gallery">
+                        <img src="images/gallery-10.jpg" alt="Gallery">
+                        <img src="images/gallery-7.jpg" alt="Gallery">
+                        <img src="images/gallery-9.jpg" alt="Gallery">
+                    </div>
                 </div>
             </div>
 
             <!-- CENTER BOX -->
-            <div class="w-full md:w-[50%] flex flex-col items-center justify-center h-full">
+            <div class="w-full md:w-[48%] flex flex-col items-center justify-center h-full">
                 
                 <div class="center-blob relative w-full p-8 sm:p-12 md:p-16 flex flex-col items-center justify-center overflow-hidden">
                      
@@ -526,19 +546,31 @@
             </div>
 
             <!-- RIGHT SHAPES -->
-            <div class="hidden md:flex flex-col w-[20%] h-[80vh] py-4">
-                <div class="marquee-container w-full h-full rounded-xl mask-vertical shadow-2xl">
-                    <div class="marquee-content" style="animation-direction: reverse; animation-duration: 45s;">
+            <div class="hidden md:flex flex-col w-[24%] h-[80vh] py-4">
+                <div class="marquee-container w-full h-full rounded-2xl mask-vertical shadow-2xl flex flex-row gap-3 p-3">
+                    <div class="marquee-content flex-1" style="animation-direction: reverse; animation-duration: 45s;">
                         <!-- First set -->
-                        <img src="images/gallery-5.jpg" alt="Gallery">
-                        <img src="images/gallery-7.jpg" alt="Gallery">
                         <img src="images/gallery-9.jpg" alt="Gallery">
+                        <img src="images/gallery-7.jpg" alt="Gallery">
+                        <img src="images/gallery-4.jpg" alt="Gallery">
                         <img src="images/gallery-10.jpg" alt="Gallery">
                         <!-- Duplicate set for seamless looping -->
-                        <img src="images/gallery-5.jpg" alt="Gallery">
-                        <img src="images/gallery-7.jpg" alt="Gallery">
                         <img src="images/gallery-9.jpg" alt="Gallery">
+                        <img src="images/gallery-7.jpg" alt="Gallery">
+                        <img src="images/gallery-4.jpg" alt="Gallery">
                         <img src="images/gallery-10.jpg" alt="Gallery">
+                    </div>
+                    <div class="marquee-content flex-1" style="animation-duration: 38s;">
+                        <!-- First set -->
+                        <img src="images/gallery-8.jpg" alt="Gallery">
+                        <img src="images/gallery-1.jpg" alt="Gallery">
+                        <img src="images/gallery-6.jpg" alt="Gallery">
+                        <img src="images/gallery-5.jpg" alt="Gallery">
+                        <!-- Duplicate set for seamless looping -->
+                        <img src="images/gallery-8.jpg" alt="Gallery">
+                        <img src="images/gallery-1.jpg" alt="Gallery">
+                        <img src="images/gallery-6.jpg" alt="Gallery">
+                        <img src="images/gallery-5.jpg" alt="Gallery">
                     </div>
                 </div>
             </div>
